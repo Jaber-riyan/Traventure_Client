@@ -42,8 +42,38 @@ const Navbar = () => {
             >
                 Home
             </NavLink>
+            <NavLink
+                to="/community"
+                className={({ isActive }) =>
+                    isActive
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                }
+            >
+                Community
+            </NavLink>
+            <NavLink
+                to="/about-us"
+                className={({ isActive }) =>
+                    isActive
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                }
+            >
+                About Us
+            </NavLink>
+            <NavLink
+                to="/trips"
+                className={({ isActive }) =>
+                    isActive
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                }
+            >
+                Trips
+            </NavLink>
 
-            {user && isAdmin.isAdmin && (
+            {/* {user && isAdmin.isAdmin && (
                 <NavLink
                     to={'/dashboard/admin-home'}
                     className={({ isActive }) =>
@@ -66,7 +96,7 @@ const Navbar = () => {
                 >
                     Dashboard
                 </NavLink>
-            )}
+            )} */}
 
             {user?.email ? (
                 <>
@@ -78,19 +108,49 @@ const Navbar = () => {
                     </Link>
                     <NavLink className="flex gap-2 justify-center items-center text-[14px]">
                         {user && (
-                            <Link title={`${user.displayName}`}>
-                                <div className="avatar">
-                                    <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-                                        <img
-                                            src={user.photoURL}
-                                            alt="User profile"
-                                            referrerPolicy="no-referrer"
-                                        />
+                            <div className="dropdown dropdown-bottom dropdown-end">
+                                <button
+                                    title={`${user.displayName}`}
+                                    tabIndex={0}
+                                    role="button"
+                                    className="m-1"
+                                >
+                                    <div className="avatar">
+                                        <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+                                            <img
+                                                src={user.photoURL}
+                                                alt="User profile"
+                                                referrerPolicy="no-referrer"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
+                                </button>
+                                {/* Dropdown Content */}
+                                <ul
+                                    tabIndex={0}
+                                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                                >
+                                    <li>
+                                        <Link>Dashboard</Link>
+                                    </li>
+                                    <li>
+                                        <Link>Offer Announcement</Link>
+                                    </li>
+                                    {
+                                        user && <>
+                                            <li className='cursor-not-allowed pointer-events-none'>
+                                                <h2>User Name: {user?.displayName}</h2>
+                                            </li>
+                                            <li className='cursor-not-allowed pointer-events-none'>
+                                                <h2>User Email: {user?.email}</h2>
+                                            </li>
+                                        </>
+                                    }
+                                </ul>
+                            </div>
                         )}
                     </NavLink>
+
                 </>
             ) : (
                 <>
@@ -114,8 +174,12 @@ const Navbar = () => {
                     >
                         Login
                     </NavLink>
-                    <NavLink className="flex gap-2 justify-center items-center text-[14px]">
-                        <div>
+                    <div className="dropdown dropdown-bottom dropdown-end">
+                        <button
+                            tabIndex={0}
+                            role="button"
+                            className="m-1"
+                        >
                             <div className="avatar">
                                 <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
                                     <img
@@ -125,58 +189,82 @@ const Navbar = () => {
                                     />
                                 </div>
                             </div>
-                        </div>
-                    </NavLink>
+                        </button>
+                        {/* Dropdown Content */}
+                        <ul
+                            tabIndex={0}
+                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                        >
+                            <li>
+                                <Link>Dashboard</Link>
+                            </li>
+                            <li>
+                                <Link>Offer Announcement</Link>
+                            </li>
+                            {
+                                user && <>
+                                    <li className='cursor-not-allowed pointer-events-none'>
+                                        <h2>User Name: {user?.displayName}</h2>
+                                    </li>
+                                    <li className='cursor-not-allowed pointer-events-none'>
+                                        <h2>User Email: {user?.email}</h2>
+                                    </li>
+                                </>
+                            }
+                        </ul>
+                    </div>
                 </>
             )}
         </>
     );
 
     return (
-        <div>
-            <div className="md:w-[80%] mx-auto">
-                <nav>
-                    <div className="navbar text-black">
-                        <div className="navbar-start animate__animated animate__fadeInLeft">
-                            <Link to={'/'}>
-                                <h2 className="text-2xl font-bold cinzel-font text-white">Traventure</h2>
-                            </Link>
-                        </div>
-                        <div className="navbar-end">
-                            <div className="lg:block hidden animate__animated animate__fadeInRight">
-                                <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
-                                    {links}
-                                </ul>
+        <>
+            <div>
+                <div className="md:w-[80%] mx-auto">
+                    <nav>
+                        <div className="navbar text-black">
+                            <div className="navbar-start animate__animated animate__fadeInLeft">
+                                <Link to={'/'}>
+                                    <h2 className="text-2xl font-bold cinzel-font text-white">Traventure</h2>
+                                </Link>
                             </div>
-                            <div className="dropdown">
-                                <div tabIndex="0" role="button" className="btn btn-ghost lg:hidden">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 6h16M4 12h8m-8 6h16"
-                                        />
-                                    </svg>
+                            <div className="navbar-end">
+                                <div className="lg:block hidden animate__animated animate__fadeInRight">
+                                    <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
+                                        {links}
+                                    </ul>
                                 </div>
-                                <ul
-                                    tabIndex="0"
-                                    className="menu menu-sm dropdown-content bg-black/95 rounded-box z-[1] mt-3 w-52 p-2 shadow right-0"
-                                >
-                                    {links}
-                                </ul>
+                                <div className="dropdown">
+                                    <div tabIndex="0" role="button" className="btn btn-ghost lg:hidden">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M4 6h16M4 12h8m-8 6h16"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <ul
+                                        tabIndex="0"
+                                        className="menu menu-sm dropdown-content bg-black/95 rounded-box z-[1] mt-3 w-52 p-2 shadow right-0"
+                                    >
+                                        {links}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
