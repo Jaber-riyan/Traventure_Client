@@ -56,7 +56,7 @@ const Footer = () => {
                             <Link
                                 to="#"
                                 onClick={() => window.open('https://www.linkedin.com/in/jaber-ahmed-riyan', '_blank', 'noopener,noreferrer')}>
-                                <FaLinkedin size={30} />
+                                <FaLinkedin size={30} /
                             </Link>
                         </div>
                     </div>
