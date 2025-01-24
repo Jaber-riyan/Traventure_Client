@@ -20,7 +20,7 @@ const MainLayout = () => {
     return (
         <div>
             <Helmet><title>Home | Traventure</title></Helmet>
-            <header className='sticky w-full top-0 z-20 backdrop-blur-sm bg-black/40'>
+            <header className='fixed w-full top-0 z-20 backdrop-blur-sm bg-black/40'>
                 {/* {noHeaderFooter || <Navbar></Navbar>} */}
                 <Navbar></Navbar>
             </header>
