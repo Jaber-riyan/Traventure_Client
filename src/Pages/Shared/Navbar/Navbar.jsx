@@ -8,7 +8,7 @@ import UseAdmin from '../../../Hooks/UseAdmin/UseAdmin';
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser } = useAuth();
-    const isAdmin = UseAdmin();
+    const { role } = UseAdmin();
 
     const logoutHandler = () => {
         handleLogout()
@@ -73,9 +73,9 @@ const Navbar = () => {
                 Trips
             </NavLink>
 
-            {/* {user && isAdmin.isAdmin && (
+            {/* {user && role==="tourist" && (
                 <NavLink
-                    to={'/dashboard/admin-home'}
+                    to={'/dashboard/tourist/admin-home'}
                     className={({ isActive }) =>
                         isActive
                             ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
@@ -85,9 +85,9 @@ const Navbar = () => {
                     Dashboard
                 </NavLink>
             )}
-            {user && !isAdmin.isAdmin && (
+            {user && role==="tourGuide" && (
                 <NavLink
-                    to={'/dashboard/user-home'}
+                    to={'/dashboard/tour-guide/home'}
                     className={({ isActive }) =>
                         isActive
                             ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
@@ -97,6 +97,42 @@ const Navbar = () => {
                     Dashboard
                 </NavLink>
             )} */}
+            {user && role === "admin" && (
+                <NavLink
+                    to={'/dashboard/admin/profile'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                    }
+                >
+                    Dashboard
+                </NavLink>
+            )}
+            {user && role === "tourGuide" && (
+                <NavLink
+                    to={'/dashboard/admin/profile'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                    }
+                >
+                    Dashboard
+                </NavLink>
+            )}
+            {user && role === "tourist" && (
+                <NavLink
+                    to={'/dashboard/tourist/profile'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                    }
+                >
+                    Dashboard
+                </NavLink>
+            )}
 
             {user?.email ? (
                 <>

@@ -101,8 +101,8 @@ const Register = () => {
                 <Helmet>
                     <title>Register | Traventure</title>
                 </Helmet>
-                <img src="https://i.ibb.co.com/9cwJPtr/authentication2.png" onContextMenu={e => e.preventDefault()} draggable={false} alt="" />
-                <div className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__zoomIn">
+                <img className='animate__animated animate__bounceInRight' src="https://i.ibb.co.com/9cwJPtr/authentication2.png" onContextMenu={e => e.preventDefault()} draggable={false} alt="" />
+                <div className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__bounceInLeft">
                     <h2 className="text-3xl font-bold text-center text-[#000]">Register</h2>
 
                     <form onSubmit={handleSubmit(handleSubmitRegister)} className="space-y-4">

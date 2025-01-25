@@ -109,8 +109,8 @@ const Login = () => {
                     <title>Login | Traventure
                     </title>
                 </Helmet>
-                <img src="https://i.ibb.co.com/9cwJPtr/authentication2.png" onContextMenu={e => e.preventDefault()} draggable={false} alt="" />
-                <form onSubmit={handleSubmit(handleSubmitLogin)} className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__zoomIn">
+                <img className='animate__animated animate__bounceInLeft' src="https://i.ibb.co.com/9cwJPtr/authentication2.png" onContextMenu={e => e.preventDefault()} draggable={false} alt="" />
+                <form onSubmit={handleSubmit(handleSubmitLogin)} className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__bounceInRight">
                     <h2 className="text-3xl font-bold text-center text-[#000]">Login</h2>
 
                     <div className="space-y-4">
@@ -125,6 +125,7 @@ const Login = () => {
                                     id="email"
                                     name='email'
                                     {...register("email", { required: true })}
+                                    defaultValue={"jaberriyan357@gmail.com"}
                                     placeholder="Enter your email address"
                                     className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
                                 />
@@ -143,6 +144,7 @@ const Login = () => {
                                     id="password"
                                     name='password'
                                     {...register("password", { required: true })}
+                                    value={"123456Jaa"}
                                     placeholder="Enter your password"
                                     className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
                                 />
@@ -169,7 +171,7 @@ const Login = () => {
                         </div>
                     </div>
                     <p className="mt-4 text-sm text-[#000]">
-                        <Link className="underline text-[#000]">
+                        <Link to={`/forgat-password`} className="underline text-[#000]">
                             Forgat Password?
                         </Link>
 

@@ -64,7 +64,7 @@ const Banner = () => {
                     </div>
                     {/* Card 3 */}
                     <div className="flex gap-5 animate__animated animate__fadeInUp px-12 py-5">
-                        <BsBicycle size={55} className="text-[#5b21b6] text-4xl mb-3" />
+                        <BsBicycle size={60} className="text-[#5b21b6] text-4xl mb-3" />
                         <div>
                             <h3 className="text-3xl font-bold text-[#2a00a2] mb-4">4,000,000</h3>
                             <p className="text-sm text-gray-600 md:w-[90%]">
