@@ -27,41 +27,40 @@ const AddPackage = () => {
         // console.log(data);
         const packageName = data.packageName;
         const tourDuration = data.tourDuration;
-        let userPhoto = data.userPhoto[0];
+        let placePhoto1 = data.placePhoto1[0];
+        let placePhoto2 = data.placePhoto2[0];
+        let placePhoto3 = data.placePhoto3[0];
+        let placePhoto4 = data.placePhoto4[0];
+        let placePhoto5 = data.placePhoto5[0];
 
-        if (userPhoto) {
-            const { data: imageURL } = await axiosInstanceNormal.post(`https://api.imgbb.com/1/upload?key=${ImageHostingKey}`, { image: userPhoto }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            userPhoto = imageURL.data.url;
-        }
-        if (userPhoto || userName) {
-            updateProfile(auth.currentUser, {
-                displayName: userName, photoURL: userPhoto
-            })
-        }
+        // place photo 1 insert into the imgbb.com 
+        const { data: imageURL1 } = await axiosInstanceNormal.post(`https://api.imgbb.com/1/upload?key=${ImageHostingKey}`, { image: placePhoto1 }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        placePhoto1 = imageURL1.data.url;
+
 
         // update user state 
-        setUser(auth.currentUser)
+        // setUser(auth.currentUser)
         // console.log(imageURL);
 
         // update usre info 
-        const adminInfo = {
-            name: userName,
-            email: tourDuration,
-            id: userData?._id
-        }
-        console.log(adminInfo);
-        // send to server 
-        const userUpdateRes = await axiosInstanceSecure.patch('/user', adminInfo);
-        if (userUpdateRes.data.status) {
-            toast.success('Admin Profile updated successfully!')
-            userRefetch();
-        } else {
-            toast.error('Failed to update item.');
-        }
+        // const adminInfo = {
+        //     name: ,
+        //     email: tourDuration,
+        //     id: userData?._id
+        // }
+        // console.log(adminInfo);
+        // // send to server 
+        // const userUpdateRes = await axiosInstanceSecure.patch('/user', adminInfo);
+        // if (userUpdateRes.data.status) {
+        //     toast.success('Admin Profile updated successfully!')
+        //     userRefetch();
+        // } else {
+        //     toast.error('Failed to update item.');
+        // }
 
         // console.table({ recipeName, category, tourPrice, recipeDetails, recipePhoto });
     }

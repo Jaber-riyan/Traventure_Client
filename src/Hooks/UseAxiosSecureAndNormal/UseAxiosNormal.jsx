@@ -11,7 +11,6 @@ const axiosInstanceNormal = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER_BASE_URL}`,
 })
 const UseAxiosNormal = () => {
-    const location = useLocation();
     const { handleLogout } = useAuth()
     const navigate = useNavigate();
 
@@ -29,7 +28,7 @@ const UseAxiosNormal = () => {
                             title: "Logout Successfully",
                             icon: 'success'
                         })
-                        navigate('/login', {state: location.pathname});
+                        navigate('/login');
                     })
                     .catch(error => {
                         const errorCode = error.code.split("auth/")[1];

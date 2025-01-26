@@ -92,7 +92,7 @@ const ManageProfile = () => {
             <div className='md:w-[50%] mx-auto bg-[#fe487f6c] rounded-xl p-10 mb-10'>
                 {/* admin photo  */}
                 <div className='flex justify-center mb-7'>
-                    <img draggable={false} onContextMenu={(e) => e.preventDefault()} className='w-48 h-48 rounded-full border-4 border-blue-500' src={user?.photoURL} alt="admin image" />
+                    <img referrerPolicy="no-referrer" draggable={false} onContextMenu={(e) => e.preventDefault()} className='w-48 h-48 rounded-full border-4 border-blue-500 object-cover' src={user?.photoURL} alt="admin image" />
                 </div>
                 {/* name and email section  */}
                 <div className='md:flex justify-between mb-3'>

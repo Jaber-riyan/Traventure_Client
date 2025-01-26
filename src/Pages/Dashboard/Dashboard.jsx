@@ -85,7 +85,7 @@ const Dashboard = () => {
                     <ul className="menu p-4 w-80 bg-base-200 text-base-content h-screen">
                         <div className="mb-10">
                             <Link
-                                to={role === "tourist" ? "/dashboard/tourist/profile" : location.pathname === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}
+                                to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}
                                 className="text-2xl font-bold cinzel-font tracking-[4px]"
                                 onClick={closeDrawer}
                             >

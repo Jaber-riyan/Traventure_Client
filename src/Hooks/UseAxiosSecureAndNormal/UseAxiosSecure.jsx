@@ -8,7 +8,6 @@ import useAuth from '../UseAuth/UseAuth';
 
 const axiosInstanceSecure = axios.create({
     baseURL: import.meta.env.VITE_SERVER_BASE_URL,
-    withCredentials: true
 })
 const UseAxiosSecure = () => {
 
@@ -16,6 +15,18 @@ const UseAxiosSecure = () => {
     const { handleLogout } = useAuth()
 
     useEffect(() => {
+
+        // request interceptor to add authorization header for every secure call to teh api
+        axiosInstanceSecure.interceptors.request.use(function (config) {
+            const token = localStorage.getItem('authToken')
+            // console.log('request stopped by interceptors', token)
+            config.headers.authorization = `Bearer ${token}`;
+            return config;
+        }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+        });
+
         axiosInstanceSecure.interceptors.response.use(response => {
             return response;
         }, error => {

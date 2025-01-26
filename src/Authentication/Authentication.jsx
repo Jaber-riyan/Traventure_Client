@@ -5,6 +5,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import auth from '../Firebase/Firebase.config';
 import axios from 'axios';
 import UseAxiosSecure from '../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import UseAxiosNormal from '../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 
 
 const Authentication = ({ children }) => {
@@ -26,7 +27,6 @@ const Authentication = ({ children }) => {
     const handleLogin = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
-
     }
 
     // social register 
@@ -37,22 +37,22 @@ const Authentication = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            // console.log("current user -->", currentUser);
             setUser(currentUser);
-            if (currentUser?.email) {
+            if (currentUser) {
+                // console.log("current user -->", currentUser);
                 const user = { email: currentUser.email }
-                axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/jwt/create`, user, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/jwt/create`, user)
                     .then(data => {
-                        // console.log(data.data);
+                        console.log(data.data);
+                        if (data.data.token) {
+                            // token set in the client side local storage 
+                            localStorage.setItem('authToken', data.data.token)
+                        }
                         setLoading(false);
                     })
             }
             else {
-                axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/jwt/remove`, {}, { withCredentials: true })
-                    .then(res => {
-                        // console.log(res.data);
-                        setLoading(false);
-                    })
+                localStorage.removeItem('authToken')
             }
             setLoading(false);
         })

@@ -73,31 +73,8 @@ const Navbar = () => {
                 Trips
             </NavLink>
 
-            {/* {user && role==="tourist" && (
-                <NavLink
-                    to={'/dashboard/tourist/admin-home'}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )}
-            {user && role==="tourGuide" && (
-                <NavLink
-                    to={'/dashboard/tour-guide/home'}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )} */}
-            {user && role === "admin" && (
+            {/* dashboard routes  */}
+            {/* {user && role === "admin" && (
                 <NavLink
                     to={'/dashboard/admin/profile'}
                     className={({ isActive }) =>
@@ -132,7 +109,7 @@ const Navbar = () => {
                 >
                     Dashboard
                 </NavLink>
-            )}
+            )} */}
 
             {user?.email ? (
                 <>
@@ -167,7 +144,7 @@ const Navbar = () => {
                                     className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
                                 >
                                     <li>
-                                        <Link>Dashboard</Link>
+                                        <Link to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}>Dashboard</Link>
                                     </li>
                                     <li>
                                         <Link>Offer Announcement</Link>
