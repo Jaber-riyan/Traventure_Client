@@ -28,10 +28,6 @@ const router = createBrowserRouter([
                 element: <Register></Register>
             },
             {
-                path: 'secret',
-                element: <div>Secret</div>
-            },
-            {
                 path: 'forgat-password',
                 element: <ForgatPassword></ForgatPassword>
             }

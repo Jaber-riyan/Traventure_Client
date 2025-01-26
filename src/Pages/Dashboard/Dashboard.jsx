@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { MdLogout, MdTour, MdManageHistory } from "react-icons/md";
+import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook } from "react-icons/md";
 import { TbBrandDaysCounter } from "react-icons/tb";
 import { FaChevronCircleRight, FaHome } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -9,6 +9,10 @@ import { toast } from "react-toastify";
 import useAuth from "../../Hooks/UseAuth/UseAuth";
 import UseAdmin from "../../Hooks/UseAdmin/UseAdmin";
 import { Helmet } from "react-helmet-async";
+import { IoMdPersonAdd } from "react-icons/io";
+
+
+
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -186,14 +190,14 @@ const Dashboard = () => {
                                         to="/dashboard/tourist/bookings"
                                         onClick={closeDrawer}
                                     >
-                                        <MdTour size={20} />
+                                        <MdBook size={20} />
                                         My Bookings
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/add-stories"
+                                        to="/dashboard/tourist/add-stories"
                                         onClick={closeDrawer}
                                     >
                                         <TbBrandDaysCounter size={20} />
@@ -203,11 +207,21 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/manage-stories"
+                                        to="/dashboard/tourist/manage-stories"
                                         onClick={closeDrawer}
                                     >
                                         <MdManageHistory size={20} />
                                         Manage Stories
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className="flex items-center gap-3 font-bold"
+                                        to="/dashboard/admin/manage-stories"
+                                        onClick={closeDrawer}
+                                    >
+                                        <IoMdPersonAdd size={20} />
+                                        Join as tour guide
                                     </NavLink>
                                 </li>
                             </>
