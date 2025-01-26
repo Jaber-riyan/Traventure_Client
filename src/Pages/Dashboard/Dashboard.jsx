@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook } from "react-icons/md";
+import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook, MdAdd, MdOutlineVerifiedUser } from "react-icons/md";
 import { TbBrandDaysCounter } from "react-icons/tb";
-import { FaChevronCircleRight, FaHome } from "react-icons/fa";
+import { FaChevronCircleRight, FaHome, FaUserCheck, FaUsersCog } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import useAuth from "../../Hooks/UseAuth/UseAuth";
@@ -99,6 +99,36 @@ const Dashboard = () => {
                                     >
                                         <CgProfile size={20} />
                                         Manage Profile
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className="flex items-center gap-3 font-bold"
+                                        to="/dashboard/admin/add-package"
+                                        onClick={closeDrawer}
+                                    >
+                                        <MdAdd size={20} />
+                                        Add Package
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className="flex items-center gap-3 font-bold"
+                                        to="/dashboard/admin/manage-users"
+                                        onClick={closeDrawer}
+                                    >
+                                        <FaUsersCog size={20} />
+                                        Manage Users
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className="flex items-center gap-3 font-bold"
+                                        to="/dashboard/admin/manage-candidates"
+                                        onClick={closeDrawer}
+                                    >
+                                        <FaUserCheck size={20} />
+                                        Manage Candidates
                                     </NavLink>
                                 </li>
                                 <li>

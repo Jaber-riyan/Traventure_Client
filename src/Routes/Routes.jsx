@@ -10,6 +10,7 @@ import AdminRoutes from './AdminRoutes/AdminRoutes';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 import ManageProfile from '../Pages/Dashboard/Admin/ManageProfile/ManageProfile';
 import AdminProfileUpdate from '../Pages/Dashboard/Admin/AdminProfileUpdate/AdminProfileUpdate';
+import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: 'admin/profile/edit',
                 element: <AdminRoutes><AdminProfileUpdate></AdminProfileUpdate></AdminRoutes>
+            },
+            {
+                path: 'admin/manage-users',
+                element: <AdminRoutes><ManageUsers></ManageUsers></AdminRoutes>
             },
             {
                 path: 'admin/add-package',

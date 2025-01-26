@@ -16,7 +16,6 @@ import UseUser from '../../../../Hooks/UseUser/UseUser';
 
 const ManageProfile = () => {
     const { user } = useAuth();
-    const axiosInstanceSecure = UseAxiosSecure();
     const { userData } = UseUser();
 
 
@@ -107,7 +106,7 @@ const ManageProfile = () => {
                 </div>
                 {/* edit button for editing profile  */}
                 <div className='flex justify-center'>
-                    <Link to={`admin/profile/edit`}>
+                    <Link to={`/dashboard/admin/profile/edit`}>
                         <button className='bg-blue-500 px-7 py-3 hover:bg-white transition-all duration-500 hover:text-black rounded-xl text-white font-bold'>Edit</button>
                     </Link>
                 </div>
