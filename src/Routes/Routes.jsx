@@ -8,6 +8,8 @@ import ForgatPassword from '../Pages/ForgatPassword/ForgatPassword';
 import Dashboard from '../Pages/Dashboard/Dashboard';
 import AdminRoutes from './AdminRoutes/AdminRoutes';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
+import ManageProfile from '../Pages/Dashboard/Admin/ManageProfile/ManageProfile';
+import AdminProfileUpdate from '../Pages/Dashboard/Admin/AdminProfileUpdate/AdminProfileUpdate';
 
 const router = createBrowserRouter([
     {
@@ -41,7 +43,11 @@ const router = createBrowserRouter([
             // admin routes start
             {
                 path: 'admin/profile',
-                element: <AdminRoutes><div>Admin Profile</div></AdminRoutes>
+                element: <AdminRoutes><ManageProfile></ManageProfile></AdminRoutes>
+            },
+            {
+                path: 'admin/profile/edit',
+                element: <AdminRoutes><AdminProfileUpdate></AdminProfileUpdate></AdminRoutes>
             },
             {
                 path: 'admin/add-package',

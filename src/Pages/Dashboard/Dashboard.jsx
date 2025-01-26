@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook } from "react-icons/md";
@@ -10,6 +10,7 @@ import useAuth from "../../Hooks/UseAuth/UseAuth";
 import UseAdmin from "../../Hooks/UseAdmin/UseAdmin";
 import { Helmet } from "react-helmet-async";
 import { IoMdPersonAdd } from "react-icons/io";
+import Loading from "../Shared/Loading/Loading";
 
 
 
@@ -39,15 +40,23 @@ const Dashboard = () => {
             });
     };
 
+    // useEffect(() => {
+    //     if (role) {
+    //         const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    //         toast.success(`Welcome ${capitalize(role)} ${user?.displayName}`);
+    //     }
+
+    // }, [role, user?.displayName])
+
     // Close the drawer when a link is clicked
     const closeDrawer = () => {
         document.getElementById("my-drawer").checked = false;
     };
 
-    if (loading || roleLoading) return <p>Loading...</p>;
+    if (loading || roleLoading) return <Loading></Loading>;
 
     return (
-        <div className="bg-gray-200">
+        <div className="bg-blue-100">
             <Helmet>
                 <title>Dashboard | Traventure</title>
             </Helmet>
@@ -57,7 +66,7 @@ const Dashboard = () => {
                     {/* Page Content */}
                     <label
                         htmlFor="my-drawer"
-                        className="drawer-button w-fit h-screen flex flex-col justify-center bg-black/40 hover:bg-black/50 cursor-pointer p-1 hover:text-white"
+                        className="drawer-button w-fit flex flex-col justify-center bg-black/40 hover:bg-black/50 cursor-pointer p-1 hover:text-white"
                     >
                         <div>
                             <FaChevronCircleRight size={20} />
