@@ -111,7 +111,7 @@ const Navbar = () => {
             )}
             {user && role === "tourGuide" && (
                 <NavLink
-                    to={'/dashboard/admin/profile'}
+                    to={'/dashboard/tour-guide/profile'}
                     className={({ isActive }) =>
                         isActive
                             ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"

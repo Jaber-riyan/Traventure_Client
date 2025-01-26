@@ -11,6 +11,9 @@ import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 import ManageProfile from '../Pages/Dashboard/Admin/ManageProfile/ManageProfile';
 import AdminProfileUpdate from '../Pages/Dashboard/Admin/AdminProfileUpdate/AdminProfileUpdate';
 import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
+import ManageCandidates from '../Pages/Dashboard/Admin/ManageCandidates/ManageCandidates';
+import AddPackage from '../Pages/Dashboard/Admin/AddPackage/AddPackage';
+import TourGuideRoutes from './TourGuideRoutes/TourGuideRoutes';
 
 const router = createBrowserRouter([
     {
@@ -55,8 +58,12 @@ const router = createBrowserRouter([
                 element: <AdminRoutes><ManageUsers></ManageUsers></AdminRoutes>
             },
             {
+                path: 'admin/manage-candidates',
+                element: <AdminRoutes><ManageCandidates></ManageCandidates></AdminRoutes>
+            },
+            {
                 path: 'admin/add-package',
-                element: <AdminRoutes><div>Add Package</div></AdminRoutes>
+                element: <AdminRoutes><AddPackage></AddPackage></AdminRoutes>
             },
             {
                 path: 'admin/assigned-tour',
@@ -78,7 +85,15 @@ const router = createBrowserRouter([
                 path: 'tourist/profile',
                 element: <PrivateRoutes><div>tourist profile</div></PrivateRoutes>
             },
-            // tourist routes end 
+            // tourist routes end
+
+
+            // tour guide routes start 
+            {
+                path: 'tour-guide/profile',
+                element: <TourGuideRoutes><div>Tour Guide Profile</div></TourGuideRoutes>
+            },
+            // tour guide routes end 
         ]
     }
 ])

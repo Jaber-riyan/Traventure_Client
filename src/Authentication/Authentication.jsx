@@ -69,6 +69,7 @@ const Authentication = ({ children }) => {
         handleLogin,
         loading,
         googleRegister,
+        setLoading,
     }
     return (
         <AuthContext.Provider value={authInfo}>

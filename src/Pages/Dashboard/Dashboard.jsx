@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook, MdAdd, MdOutlineVerifiedUser } from "react-icons/md";
 import { TbBrandDaysCounter } from "react-icons/tb";
@@ -19,6 +19,10 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser, loading } = useAuth();
     const { role, roleLoading } = UseAdmin();
+    const location = useLocation();
+    console.log(location.pathname);
+
+
 
     const logoutHandler = () => {
         handleLogout()
@@ -81,7 +85,7 @@ const Dashboard = () => {
                     <ul className="menu p-4 w-80 bg-base-200 text-base-content h-screen">
                         <div className="mb-10">
                             <Link
-                                to="/dashboard/admin/profile"
+                                to={role === "tourist" ? "/dashboard/tourist/profile" : location.pathname === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}
                                 className="text-2xl font-bold cinzel-font tracking-[4px]"
                                 onClick={closeDrawer}
                             >

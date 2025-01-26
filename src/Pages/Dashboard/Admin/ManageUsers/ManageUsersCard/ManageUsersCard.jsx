@@ -1,7 +1,3 @@
-import React from 'react';
-import { FaTrash } from 'react-icons/fa';
-import { FaUsers } from 'react-icons/fa6';
-
 const ManageUsersCard = ({ item: user, index }) => {
     return (
         <tr className="border-b border-gray-300 hover:bg-gray-100">
@@ -13,7 +9,7 @@ const ManageUsersCard = ({ item: user, index }) => {
             <td className="py-2 px-4 text-[#737373]">{user.lastLoginTime}</td>
             <td className="py-2 px-4 text-[#737373]">
                 <h2 className={`font-bold text-[1rem] capitalize btn 
-                ${user?.role === "admin" ? 'bg-green-400' : 'bg-[#D1A054]'} text-white`}>
+                ${user?.role === "admin" ? 'bg-green-500' : user?.role === "tourist"? 'bg-blue-400': 'bg-purple-400' } text-white`}>
                     {user?.role}</h2>
             </td>
         </tr>

@@ -14,7 +14,7 @@ import UseAxiosNormal from '../../../Hooks/UseAxiosSecureAndNormal/UseAxiosNorma
 
 
 const Login = () => {
-    const { handleLogin, user, googleRegister } = useAuth();
+    const { handleLogin, user, googleRegister, setLoading } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const captchaRef = useRef(null);
@@ -96,6 +96,7 @@ const Login = () => {
                     ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     ?.join(" ");
                 toast.error(formattedError);
+                setLoading(false)
                 navigate('/login');
             })
         // e.target.reset();

@@ -13,7 +13,7 @@ import auth from '../../../../Firebase/Firebase.config';
 
 
 const ImageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const AdminProfileUpdate = () => {
+const AddPackage = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const axiosInstanceNormal = UseAxiosNormal();
     const axiosInstanceSecure = UseAxiosSecure();
@@ -25,8 +25,8 @@ const AdminProfileUpdate = () => {
 
     const handleSubmitAddItem = async (data) => {
         // console.log(data);
-        const userName = data.userName;
-        const userEmail = data.userEmail;
+        const packageName = data.packageName;
+        const tourDuration = data.tourDuration;
         let userPhoto = data.userPhoto[0];
 
         if (userPhoto) {
@@ -50,7 +50,7 @@ const AdminProfileUpdate = () => {
         // update usre info 
         const adminInfo = {
             name: userName,
-            email: userEmail,
+            email: tourDuration,
             id: userData?._id
         }
         console.log(adminInfo);
@@ -63,59 +63,60 @@ const AdminProfileUpdate = () => {
             toast.error('Failed to update item.');
         }
 
-        // console.table({ recipeName, category, price, recipeDetails, recipePhoto });
+        // console.table({ recipeName, category, tourPrice, recipeDetails, recipePhoto });
     }
 
     return (
         <div className="container mx-auto px-4 py-8">
             <section className="mb-5">
-                <SectionTitle heading={"Update Admin Profile"} subHeading={"What's Update?"}></SectionTitle>
+                <SectionTitle heading={"Add Tour Package"} subHeading={"What's New?"}></SectionTitle>
             </section>
             <div className="p-8 bg-white rounded-lg shadow-lg">
                 <form onSubmit={handleSubmit(handleSubmitAddItem)} className="space-y-6">
                     {/* User Name */}
                     <div className="form-group">
-                        <label htmlFor="recipeName" className="block text-lg font-semibold mb-2">Admin name</label>
+                        <label htmlFor="recipeName" className="block text-lg font-semibold mb-2">Package Name*</label>
                         <input
                             type="text"
-                            id="userName"
+                            id="packageName"
                             placeholder="User name"
-                            name='userName'
-                            {...register("userName")}
-                            defaultValue={userData?.name}
+                            name='packageName'
+                            {...register("packageName", { required: true })}
+                            // defaultValue={userData?.name}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                         />
+                        {errors.packageName && <span className="text-red-500">This field is required</span>}
                     </div>
 
                     <div className='grid md:grid-cols-2 grid-cols-1 gap-6'>
                         {/* User Email */}
                         <div className="form-group">
-                            <label htmlFor="category" className="block text-lg font-semibold mb-2">Admin Email</label>
+                            <label htmlFor="category" className="block text-lg font-semibold mb-2">Tour Duration</label>
                             <input
                                 type="email"
-                                id="userEmail"
+                                id="tourDuration"
                                 placeholder="User email"
-                                name='userEmail'
-                                {...register("userEmail")}
-                                defaultValue={userData?.email}
-                                readOnly={true}
+                                name='tourDuration'
+                                {...register("tourDuration", { required: true })}
+                                // defaultValue={userData?.email}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                             />
+                            {errors.tourDuration && <span className="text-red-500">This field is required</span>}
                         </div>
 
                         {/* User Role */}
                         <div className="form-group">
-                            <label htmlFor="price" className="block text-lg font-semibold mb-2">Role</label>
+                            <label htmlFor="tourPrice" className="block text-lg font-semibold mb-2">Role</label>
                             <input
                                 type="text"
-                                id="price"
+                                id="tourPrice"
                                 placeholder="Role"
-                                name='price'
-                                readOnly={true}
-                                {...register("price")}
-                                defaultValue={userData?.role}
+                                name='tourPrice'
+                                {...register("tourPrice")}
+                                // defaultValue={userData?.role}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                             />
+                            {errors.tourPrice && <span className="text-red-500">This field is required</span>}
                         </div>
                     </div>
 
@@ -127,11 +128,11 @@ const AdminProfileUpdate = () => {
                             placeholder="Recipe Details"
                             rows="4"
                             name='lastSeen'
-                            readOnly={true}
                             {...register("recipeDetails")}
-                            defaultValue={userData?.lastLoginTime}
+                            // defaultValue={userData?.lastLoginTime}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
-                        ></input>
+                        />
+                        {errors.password && <span className="text-red-500">This field is required</span>}
                     </div>
 
                     {/* File Upload */}
@@ -152,7 +153,7 @@ const AdminProfileUpdate = () => {
                             type="submit"
                             className="px-6 py-3 bg-gradient-to-r from-[#835d23] to-[#b58130] text-white hover:bg-gradient-to-l transition-all duration-1000 flex items-center gap-2 rounded-lg"
                         >
-                            <span>Update</span>
+                            <span>Add Package</span>
                         </button>
                     </div>
                 </form>
@@ -161,4 +162,4 @@ const AdminProfileUpdate = () => {
     );
 };
 
-export default AdminProfileUpdate;
+export default AddPackage;

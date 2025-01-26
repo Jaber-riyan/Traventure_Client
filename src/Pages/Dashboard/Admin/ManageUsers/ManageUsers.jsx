@@ -63,9 +63,7 @@ const ManageUsers = () => {
                         </table>
                     </div>
                 </div>
-
             </div>
-
         </div>
     );
 };
