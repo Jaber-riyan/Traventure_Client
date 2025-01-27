@@ -16,6 +16,7 @@ import AddPackage from '../Pages/Dashboard/Admin/AddPackage/AddPackage';
 import TourGuideRoutes from './TourGuideRoutes/TourGuideRoutes';
 import AssignedTour from '../Pages/Dashboard/Admin/AssignedTour/AssignedTour';
 import PackageDetails from '../Pages/PackageDetails/PackageDetails';
+import Trips from '../Pages/Trips/Trips';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: 'package-details/:id',
                 element: <PackageDetails></PackageDetails>
+            },
+            {
+                path: 'trips',
+                element: <Trips></Trips>
             }
         ]
     },
