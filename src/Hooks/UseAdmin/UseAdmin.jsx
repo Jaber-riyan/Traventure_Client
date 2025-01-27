@@ -8,14 +8,12 @@ const UseAdmin = () => {
     const { user, loading } = useAuth();
 
     const { data: role = "", refetch: refetchRole, isPending: roleLoading } = useQuery({
-        queryKey: ["admin"],
+        queryKey: [user?.email, "admin"],
         enabled: !loading,
         queryFn: async () => {
-            if (user?.email) {
-                const { data } = await axiosInstanceSecure.get(`/users/admin/${user?.email}`);
-                // console.log(data?.data);
-                return data?.data;
-            }
+            const { data } = await axiosInstanceSecure.get(`/users/admin/${user?.email}`);
+            // console.log(data?.data);
+            return data?.data;
         }
     })
 
