@@ -8,6 +8,7 @@ import useAuth from '../UseAuth/UseAuth';
 
 const axiosInstanceSecure = axios.create({
     baseURL: import.meta.env.VITE_SERVER_BASE_URL,
+    withCredentials: true
 })
 const UseAxiosSecure = () => {
 
@@ -17,12 +18,18 @@ const UseAxiosSecure = () => {
     useEffect(() => {
 
         // request interceptor to add authorization header for every secure call to teh api
-        axiosInstanceSecure.interceptors.request.use(function (config) {
-            const token = localStorage.getItem('authToken')
+        axiosInstanceSecure.interceptors.request.use((config) => {
+            const token = localStorage.getItem("authToken")
+            // console.log(token);
             // console.log('request stopped by interceptors', token)
-            config.headers.authorization = `Bearer ${token}`;
+            if (token) {
+                config.headers.authorization = token;
+            }
+            else {
+                console.warn('No token found in localStorage!');
+            }
             return config;
-        }, function (error) {
+        }, (error) => {
             // Do something with request error
             return Promise.reject(error);
         });

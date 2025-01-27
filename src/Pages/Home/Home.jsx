@@ -7,6 +7,8 @@ import TourismTravelGuideSection from './TourismTravelGuideSection/TourismTravel
 import TouristStories from './TouristStories/TouristStories';
 
 const Home = () => {
+    // const token = localStorage.getItem('authToken')
+    // console.log(token);
     return (
         <div>
             <section className='bg-gray-50 mb-10'>

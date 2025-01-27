@@ -36,25 +36,29 @@ const Authentication = ({ children }) => {
     }
 
     useEffect(() => {
+        setLoading(true);
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
+
             if (currentUser) {
+                setUser(currentUser);
+                setLoading(false)
                 // console.log("current user -->", currentUser);
                 const user = { email: currentUser.email }
-                axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/jwt/create`, user)
+                axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/jwt/create`, user, { withCredentials: true })
                     .then(data => {
-                        console.log(data.data);
+                        // console.log(data.data);
                         if (data.data.token) {
                             // token set in the client side local storage 
                             localStorage.setItem('authToken', data.data.token)
+                            // setLoading(false);
                         }
-                        setLoading(false);
                     })
             }
             else {
                 localStorage.removeItem('authToken')
+                setLoading(false)
             }
-            setLoading(false);
+            // setLoading(false);
         })
         return () => {
             unsubscribe();

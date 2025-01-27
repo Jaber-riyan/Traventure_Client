@@ -9,6 +9,8 @@ const AdminRoutes = ({ children }) => {
     const { user, loading } = useAuth();
     const { role, roleLoading } = UseAdmin();
     const location = useLocation();
+    // console.log(role);
+    // console.log({ loading, roleLoading });
 
 
     if (loading || roleLoading) {

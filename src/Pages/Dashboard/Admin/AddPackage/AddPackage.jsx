@@ -19,19 +19,22 @@ const AddPackage = () => {
     const axiosInstanceSecure = UseAxiosSecure();
     const { handleRegister, setUser, user, googleRegister } = useAuth()
     const { userData, userRefetch } = UseUser();
-    console.log(userData);
+    // console.log(userData);
 
 
 
-    const handleSubmitAddItem = async (data) => {
+    const handleSubmitAddPackage = async (data) => {
         // console.log(data);
         const packageName = data.packageName;
         const tourDuration = data.tourDuration;
+        const price = data.tourPrice;
+        const description = data.description;
+        const category = data.category;
+        let planPoint = data.planPoint;
+        let plan = data.details;
         let placePhoto1 = data.placePhoto1[0];
         let placePhoto2 = data.placePhoto2[0];
         let placePhoto3 = data.placePhoto3[0];
-        let placePhoto4 = data.placePhoto4[0];
-        let placePhoto5 = data.placePhoto5[0];
 
         // place photo 1 insert into the imgbb.com 
         const { data: imageURL1 } = await axiosInstanceNormal.post(`https://api.imgbb.com/1/upload?key=${ImageHostingKey}`, { image: placePhoto1 }, {
@@ -41,28 +44,48 @@ const AddPackage = () => {
         });
         placePhoto1 = imageURL1.data.url;
 
+        // place photo 2 insert into the imgbb.com 
+        const { data: imageURL2 } = await axiosInstanceNormal.post(`https://api.imgbb.com/1/upload?key=${ImageHostingKey}`, { image: placePhoto2 }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        placePhoto2 = imageURL2.data.url;
 
-        // update user state 
-        // setUser(auth.currentUser)
-        // console.log(imageURL);
+        // place photo 3 insert into the imgbb.com 
+        const { data: imageURL3 } = await axiosInstanceNormal.post(`https://api.imgbb.com/1/upload?key=${ImageHostingKey}`, { image: placePhoto3 }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        placePhoto3 = imageURL3.data.url;
 
-        // update usre info 
-        // const adminInfo = {
-        //     name: ,
-        //     email: tourDuration,
-        //     id: userData?._id
-        // }
-        // console.log(adminInfo);
-        // // send to server 
-        // const userUpdateRes = await axiosInstanceSecure.patch('/user', adminInfo);
-        // if (userUpdateRes.data.status) {
-        //     toast.success('Admin Profile updated successfully!')
-        //     userRefetch();
-        // } else {
-        //     toast.error('Failed to update item.');
-        // }
+        planPoint = planPoint.split("\n");
+        plan = plan.split("\n");
 
-        // console.table({ recipeName, category, tourPrice, recipeDetails, recipePhoto });
+        // console.log({ packageName, tourDuration, price, plan, planPoint, description, placePhoto1, placePhoto2, placePhoto3 });
+
+        const planData = planPoint.map((planD, index) => `${planD} | ${plan[index]}`);
+
+
+        const packageInfo = {
+            name: packageName,
+            duration: tourDuration,
+            price,
+            planData,
+            category,
+            description,
+            placePhoto1,
+            placePhoto2,
+            placePhoto3
+        }
+        console.log(packageInfo);
+
+
+        const response = await axiosInstanceSecure.post("/packages", packageInfo);
+        if (response.data.data.insertedId && response.data.status) toast.success("Successfully Added Package");
+        else toast.error("Something is Wrong! Try Again")
+
     }
 
     return (
@@ -71,7 +94,7 @@ const AddPackage = () => {
                 <SectionTitle heading={"Add Tour Package"} subHeading={"What's New?"}></SectionTitle>
             </section>
             <div className="p-8 bg-white rounded-lg shadow-lg">
-                <form onSubmit={handleSubmit(handleSubmitAddItem)} className="space-y-6">
+                <form onSubmit={handleSubmit(handleSubmitAddPackage)} className="space-y-6">
                     {/* User Name */}
                     <div className="form-group">
                         <label htmlFor="recipeName" className="block text-lg font-semibold mb-2">Package Name*</label>
@@ -92,9 +115,9 @@ const AddPackage = () => {
                         <div className="form-group">
                             <label htmlFor="category" className="block text-lg font-semibold mb-2">Tour Duration</label>
                             <input
-                                type="email"
+                                type="number"
                                 id="tourDuration"
-                                placeholder="User email"
+                                placeholder="Duration"
                                 name='tourDuration'
                                 {...register("tourDuration", { required: true })}
                                 // defaultValue={userData?.email}
@@ -105,13 +128,13 @@ const AddPackage = () => {
 
                         {/* User Role */}
                         <div className="form-group">
-                            <label htmlFor="tourPrice" className="block text-lg font-semibold mb-2">Role</label>
+                            <label htmlFor="tourPrice" className="block text-lg font-semibold mb-2">Price</label>
                             <input
-                                type="text"
+                                type="number"
                                 id="tourPrice"
-                                placeholder="Role"
+                                placeholder="Price"
                                 name='tourPrice'
-                                {...register("tourPrice")}
+                                {...register("tourPrice", { required: true })}
                                 // defaultValue={userData?.role}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                             />
@@ -119,31 +142,101 @@ const AddPackage = () => {
                         </div>
                     </div>
 
-                    {/* Last Seen */}
+                    {/* Category  */}
                     <div className="form-group">
-                        <label htmlFor="details" className="block text-lg font-semibold mb-2">Last Seen</label>
-                        <input
-                            id="details"
-                            placeholder="Recipe Details"
+                        <label htmlFor="category" className="block text-lg font-semibold mb-2">Category</label>
+                        <select
+                            id="category"
+                            name="category"
+                            {...register("category", { required: true })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                        >
+                            <option value="">Select a Category</option>
+                            <option value="nature">Nature</option>
+                            <option value="beach">Beach</option>
+                            <option value="island">Island</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="historical">Historical</option>
+                            <option value="adventure">Adventure</option>
+                        </select>
+                        {errors.category && <span className="text-red-500">This field is required</span>}
+                    </div>
+
+
+                    {/* Description */}
+                    <div className="form-group">
+                        <label htmlFor="details" className="block text-lg font-semibold mb-2">Description</label>
+                        <textarea
+                            type="text"
+                            id="description"
+                            placeholder="Description"
                             rows="4"
-                            name='lastSeen'
-                            {...register("recipeDetails")}
+                            name='description'
+                            {...register("description", { required: true })}
                             // defaultValue={userData?.lastLoginTime}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                         />
-                        {errors.password && <span className="text-red-500">This field is required</span>}
+                        {errors.description && <span className="text-red-500">This field is required</span>}
+                    </div>
+
+                    {/* Plan key point */}
+                    <div className="form-group">
+                        <label htmlFor="details" className="block text-lg font-semibold mb-2">Plan Key Point (Separate The Day Plan using New Line)</label>
+                        <textarea
+                            type="text"
+                            id="planPoint"
+                            placeholder="Plan Point"
+                            rows="3"
+                            name='planPoint'
+                            {...register("planPoint", { required: true })}
+                            // defaultValue={userData?.lastLoginTime}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                        />
+                        {errors.planPoint && <span className="text-red-500">This field is required</span>}
+                    </div>
+
+                    {/* Brief overview */}
+                    <div className="form-group">
+                        <label htmlFor="details" className="block text-lg font-semibold mb-2">Plans Of the tour (Separate The Day Plan using New Line)</label>
+                        <textarea
+                            type="text"
+                            id="details"
+                            placeholder="Details"
+                            rows="3"
+                            name='details'
+                            {...register("details", { required: true })}
+                            // defaultValue={userData?.lastLoginTime}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+                        />
+                        {errors.details && <span className="text-red-500">This field is required</span>}
                     </div>
 
                     {/* File Upload */}
                     <div className="form-group">
-                        <label htmlFor="file" className="block text-lg font-semibold mb-2">Upload Image</label>
-                        <input
-                            type="file"
-                            id="file"
-                            name="userPhoto"
-                            {...register("userPhoto")}
-                            className="file-input file-input-bordered w-full max-w-xs bg-[#b5823077] text-white"
-                        />
+                        <label htmlFor="file" className="block text-lg font-semibold mb-2">Must Upload 3 Image</label>
+                        <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+                            <input
+                                type="file"
+                                id="placePhoto1"
+                                name="placePhoto1"
+                                {...register("placePhoto1")}
+                                className="file-input file-input-bordered w-full max-w-xs bg-[#b5823077] text-white"
+                            />
+                            <input
+                                type="file"
+                                id="placePhoto2"
+                                name="placePhoto2"
+                                {...register("placePhoto2")}
+                                className="file-input file-input-bordered w-full max-w-xs bg-[#b5823077] text-white"
+                            />
+                            <input
+                                type="file"
+                                id="placePhoto3"
+                                name="placePhoto3"
+                                {...register("placePhoto3")}
+                                className="file-input file-input-bordered w-full max-w-xs bg-[#b5823077] text-white"
+                            />
+                        </div>
                     </div>
 
                     {/* Submit Button */}

@@ -14,6 +14,8 @@ import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
 import ManageCandidates from '../Pages/Dashboard/Admin/ManageCandidates/ManageCandidates';
 import AddPackage from '../Pages/Dashboard/Admin/AddPackage/AddPackage';
 import TourGuideRoutes from './TourGuideRoutes/TourGuideRoutes';
+import AssignedTour from '../Pages/Dashboard/Admin/AssignedTour/AssignedTour';
+import PackageDetails from '../Pages/PackageDetails/PackageDetails';
 
 const router = createBrowserRouter([
     {
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: 'forgat-password',
                 element: <ForgatPassword></ForgatPassword>
+            },
+            {
+                path: 'package-details/:id',
+                element: <PackageDetails></PackageDetails>
             }
         ]
     },
@@ -67,7 +73,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'admin/assigned-tour',
-                element: <AdminRoutes><div>Assigned Tour</div></AdminRoutes>
+                element: <AdminRoutes><AssignedTour></AssignedTour></AdminRoutes>
             },
             {
                 path: 'admin/add-stories',

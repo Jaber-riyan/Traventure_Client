@@ -8,14 +8,19 @@ const UseAdmin = () => {
     const { user, loading } = useAuth();
 
     const { data: role = "", refetch: refetchRole, isPending: roleLoading } = useQuery({
-        queryKey: [user?.email, "admin"],
-        enabled: !loading,
+        queryKey: ["admin", user?.email],
+        enabled: !loading && !!user?.email && !!localStorage.getItem('authToken'),
         queryFn: async () => {
-            const { data } = await axiosInstanceSecure.get(`/users/admin/${user?.email}`);
-            // console.log(data?.data);
-            return data?.data;
+            if (user?.email) {
+                const { data } = await axiosInstanceSecure.get(`/users/role/${user.email}`);
+                return data?.data;
+            }
+            return ""
+        },
+        onError: (error) => {
+            console.error("Error fetching admin role:", error);
         }
-    })
+    });
 
     return { role, refetchRole, roleLoading };
 };

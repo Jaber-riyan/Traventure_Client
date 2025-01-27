@@ -20,7 +20,7 @@ const Dashboard = () => {
     const { user, handleLogout, setUser, loading } = useAuth();
     const { role, roleLoading } = UseAdmin();
     const location = useLocation();
-    console.log(location.pathname);
+    // console.log(location.pathname);
 
 
 

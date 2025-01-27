@@ -119,7 +119,7 @@ const Navbar = () => {
                     >
                         Logout
                     </Link>
-                    <NavLink className="flex gap-2 justify-center items-center text-[14px]">
+                    <button className="flex gap-2 justify-center items-center text-[14px]">
                         {user && (
                             <div className="dropdown dropdown-bottom dropdown-end">
                                 <button
@@ -141,7 +141,7 @@ const Navbar = () => {
                                 {/* Dropdown Content */}
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow font-semibold"
                                 >
                                     <li>
                                         <Link to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}>Dashboard</Link>
@@ -162,7 +162,7 @@ const Navbar = () => {
                                 </ul>
                             </div>
                         )}
-                    </NavLink>
+                    </button>
 
                 </>
             ) : (
