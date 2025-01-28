@@ -3,7 +3,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const TourGuideCard = ({ guide }) => {
-    const { category, photo, name, phone, _id } = guide;
+    const { photo, name, phone, _id, designation, applicationTitle } = guide;
+    console.log(guide);
 
     return (
         <Link to={`/guide/${_id}`} className="w-full sm:w-64 bg-gray-500 text-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center animate__animated animate__fadeIn">
@@ -18,7 +19,7 @@ const TourGuideCard = ({ guide }) => {
 
             {/* Guide Name & Role */}
             <h3 className="text-xl font-bold mt-4 capitalize">{name}</h3>
-            <p className="text-lg text-gray-400 capitalize">{category} Tour Guide</p>
+            <p className="text-lg text-gray-400 capitalize">{applicationTitle}</p>
 
             {/* Contact */}
             <div className="mt-2 flex items-center gap-2 text-blue-400 text-lg">

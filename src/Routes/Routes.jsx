@@ -92,12 +92,12 @@ const router = createBrowserRouter([
                 element: <AdminRoutes><AssignedTour></AssignedTour></AdminRoutes>
             },
             {
-                path: 'admin/add-stories',
-                element: <AdminRoutes><div>Add stories</div></AdminRoutes>
+                path: 'add-stories',
+                element: <PrivateRoutes><div>Add stories</div></PrivateRoutes>
             },
             {
-                path: 'admin/manage-stories',
-                element: <AdminRoutes><div>manage stories</div></AdminRoutes>
+                path: 'manage-stories',
+                element: <PrivateRoutes><div>manage stories</div></PrivateRoutes>
             },
             // admin routes end
 

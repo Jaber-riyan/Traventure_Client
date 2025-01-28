@@ -148,7 +148,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/add-stories"
+                                        to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
                                         <TbBrandDaysCounter size={20} />
@@ -158,7 +158,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/manage-stories"
+                                        to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
                                         <MdManageHistory size={20} />
@@ -174,7 +174,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/profile"
+                                        to="/dashboard/tour-guide/profile"
                                         onClick={closeDrawer}
                                     >
                                         <CgProfile size={20} />
@@ -194,7 +194,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/add-stories"
+                                        to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
                                         <TbBrandDaysCounter size={20} />
@@ -204,7 +204,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/manage-stories"
+                                        to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
                                         <MdManageHistory size={20} />
@@ -240,7 +240,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/tourist/add-stories"
+                                        to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
                                         <TbBrandDaysCounter size={20} />
@@ -250,7 +250,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/tourist/manage-stories"
+                                        to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
                                         <MdManageHistory size={20} />

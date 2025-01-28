@@ -21,8 +21,8 @@ const JoinTourGuide = () => {
             name: user?.displayName,
             email: user?.email,
             userId: userData?._id,
-            experience: parseInt((Math.random() * (8 - 4) + 4)),
-            rating: (Math.random() * (5 - 4) + 4).toFixed(1)
+            experience: parseInt((Math.random() * (8 - 2) + 2)),
+            rating: (Math.random() * (5 - 3) + 3).toFixed(1)
         }
         console.log(submitInfo);
         const response = await axiosInstanceSecure.post('/tour/guide/request', submitInfo);

@@ -20,7 +20,8 @@ const TourGuideDetails = () => {
 
 
     if(tourGuideLoading) return <Loading></Loading>
-    const {photo, name, category, experience, phone, email, ratings } = tourGuide
+    const {photo, name, category, experience, phone, email, rating, description } = tourGuide
+    console.log(tourGuide);
 
 
     return (
@@ -37,11 +38,11 @@ const TourGuideDetails = () => {
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-300 capitalize">{name}</h2>
                     <p className="text-green-400 text-lg font-semibold capitalize">{category} Tour Guide</p>
                     <p className="text-gray-400 mt-2 capitalize">
-                        {name} is an experienced tour guide with a deep knowledge of the rich {category} of Bangladesh. He/She specializes in {category} tours to heritage sites and local villages.
+                        {name} {description}
                     </p>
                     <div className="mt-4 text-gray-300">
                         <p><strong>Experience:</strong> {experience} years</p>
-                        <p className="flex items-center gap-1"><FaStar className="text-yellow-400" /> Rating: {ratings}</p>
+                        <p className="flex items-center gap-1"><FaStar className="text-yellow-400" /> Rating: {rating}</p>
                         <p className="flex items-center gap-1"><FaPhoneAlt className="text-green-400" /> {phone}</p>
                         <p className="flex items-center gap-1"><FaEnvelope className="text-blue-400" /> {email}</p>
                     </div>
