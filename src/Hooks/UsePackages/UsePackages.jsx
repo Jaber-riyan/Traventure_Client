@@ -6,6 +6,7 @@ const UsePackages = () => {
     const axiosInstanceSecure = UseAxiosSecure()
 
     const { data: packages = [], refetch: packagesRefetch, isLoading: packagesLoading } = useQuery({
+        queryKey: ["packages"],
         queryFn: async () => {
             const { data } = await axiosInstanceSecure('/packages')
             return data.data

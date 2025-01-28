@@ -19,6 +19,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { Helmet } from 'react-helmet-async';
 import UseTourGuide from '../../Hooks/UseTourGuide/UseTourGuide';
+import TourGuides from './TourGuides/TourGuides';
 
 
 const PackageDetails = () => {
@@ -34,7 +35,7 @@ const PackageDetails = () => {
 
     if (packageLoading) return <Loading></Loading>
 
-    console.log(tourPackage);
+    console.log(tourPackage, {packageLoading});
     const { _id, name, duration, price, planData, category, description, placePhoto1, placePhoto2, placePhoto3 } = tourPackage
 
     return (
@@ -98,7 +99,7 @@ const PackageDetails = () => {
                 <SectionTitle heading={"meet our expert tour guides"} subHeading={""}></SectionTitle>
             </section>
             <div>
-                {/* {tourGuides.length} */}
+                <TourGuides></TourGuides>
             </div>
         </div>
     );

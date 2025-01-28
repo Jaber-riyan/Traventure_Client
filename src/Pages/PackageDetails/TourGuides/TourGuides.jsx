@@ -1,9 +1,17 @@
 import React from 'react';
+import UseTourGuide from '../../../Hooks/UseTourGuide/UseTourGuide';
+import TourGuideCard from './TourGuideCard/TourGuideCard';
+import Loading from '../../Shared/Loading/Loading';
 
 const TourGuides = () => {
+    const { tourGuides, tourGuidesRefetch, tourGuidesLoading } = UseTourGuide()
+    console.log(tourGuides);
+    if (tourGuidesLoading) return <Loading></Loading>
     return (
         <div>
-            
+            {
+                tourGuides && tourGuides.map((guide) => <TourGuideCard key={guide?._id} guide={guide}></TourGuideCard>)
+            }
         </div>
     );
 };

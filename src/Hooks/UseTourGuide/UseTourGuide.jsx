@@ -6,14 +6,15 @@ const UseTourGuide = () => {
 
     const axiosInstanceNormal = UseAxiosNormal()
 
-    const { data: tourGuides = [], refetch: tourGuideRefetch, isLoading: tourGuideLoading } = useQuery({
+    const { data: tourGuides = [], refetch: tourGuidesRefetch, isLoading: tourGuidesLoading } = useQuery({
+        queryKey: ["tourGuides"],
         queryFn: async () => {
-            const { data } = await axiosInstanceNormal.get('/tour-guide')
+            const { data } = await axiosInstanceNormal.get('/tour-guides')
             return data.data
         }
     })
 
-    return { tourGuides, tourGuideRefetch, tourGuideLoading }
+    return { tourGuides, tourGuidesRefetch, tourGuidesLoading }
 };
 
 export default UseTourGuide;

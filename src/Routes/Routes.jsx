@@ -20,6 +20,9 @@ import Trips from '../Pages/Trips/Trips';
 import TouristRoutes from './TouristRoutes/TouristRoutes';
 import ManageProfileTourist from '../Pages/Dashboard/Tourist/ManageProfileTourist/ManageProfileTourist';
 import MyBookings from '../Pages/Dashboard/Tourist/MyBookings/MyBookings';
+import TourGuides from '../Pages/PackageDetails/TourGuides/TourGuides';
+import TourGuideDetails from '../Pages/PackageDetails/TourGuides/TourGuideDetails/TourGuideDetails';
+import JoinTourGuide from '../Pages/Dashboard/Tourist/JoinTourGuide/JoinTourGuide';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: 'trips',
                 element: <Trips></Trips>
+            }, 
+            {
+                path: 'guide/:id',
+                element: <TourGuideDetails></TourGuideDetails>
             }
         ]
     },
@@ -102,7 +109,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'tourist/join-guide',
-                element: <div>Tourist Join guide request</div>
+                element: <TouristRoutes><JoinTourGuide></JoinTourGuide></TouristRoutes>
             },
             {
                 path: 'tourist/bookings',
