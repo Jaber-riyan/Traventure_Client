@@ -28,6 +28,7 @@ import ManageProfileTourGuide from '../Pages/Dashboard/TourGuide/ManageProfile/M
 import AllStories from '../Pages/AddStories/AllStories/AllStories';
 import Community from '../Pages/Community/Community';
 import GuideBookings from '../Pages/Dashboard/TourGuide/GuideBookings/GuideBookings';
+import Payment from '../Pages/Payment/Payment';
 
 const router = createBrowserRouter([
     {
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
             {
                 path: 'trips',
                 element: <Trips></Trips>
-            }, 
+            },
             {
                 path: 'guide/:id',
                 element: <TourGuideDetails></TourGuideDetails>
@@ -135,8 +136,14 @@ const router = createBrowserRouter([
             {
                 path: 'tour-guide/assigned-tour',
                 element: <TourGuideRoutes><GuideBookings></GuideBookings></TourGuideRoutes>
-            }
+            },
             // tour guide routes end 
+
+            {
+                path: 'payment',
+                element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
+            }
+
         ]
     }
 ])
