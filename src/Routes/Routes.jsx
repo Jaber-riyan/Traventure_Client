@@ -25,6 +25,8 @@ import TourGuideDetails from '../Pages/PackageDetails/TourGuides/TourGuideDetail
 import JoinTourGuide from '../Pages/Dashboard/Tourist/JoinTourGuide/JoinTourGuide';
 import AddStories from '../Pages/AddStories/AddStories';
 import ManageProfileTourGuide from '../Pages/Dashboard/TourGuide/ManageProfile/ManageProfileTourGuide';
+import AllStories from '../Pages/AddStories/AllStories/AllStories';
+import Community from '../Pages/Community/Community';
 
 const router = createBrowserRouter([
     {
@@ -59,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: 'guide/:id',
                 element: <TourGuideDetails></TourGuideDetails>
+            },
+            {
+                path: 'community',
+                element: <Community></Community>
             }
         ]
     },
@@ -99,7 +105,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'manage-stories',
-                element: <PrivateRoutes><div>manage stories</div></PrivateRoutes>
+                element: <PrivateRoutes><AllStories></AllStories></PrivateRoutes>
             },
             // admin routes end
 

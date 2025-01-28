@@ -3,32 +3,78 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
 import { toast } from "react-toastify";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure";
+import UseAxiosNormal from "../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal";
+import useAuth from "../../Hooks/UseAuth/UseAuth";
+import { useNavigate } from "react-router-dom";
+
+const ImageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const ImgBBUploadURL = `https://api.imgbb.com/1/upload?key=${ImageHostingKey}`;
 
 const AddStories = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const [charCount, setCharCount] = useState(0);
     const [selectedImages, setSelectedImages] = useState([]);
+    const axiosInstanceNormal = UseAxiosNormal();
+    const axiosInstanceSecure = UseAxiosSecure();
+    const { user } = useAuth()
+    const navigate = useNavigate();
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
         setSelectedImages(files);
     };
 
-    const onSubmit = (data) => {
+    const uploadImagesToImgBB = async (files) => {
+        const uploadPromises = files.map(async (file) => {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            try {
+                const response = await axiosInstanceNormal.post(ImgBBUploadURL, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+
+                return response.data.data.url;
+            } catch (error) {
+                console.error("Image upload failed:", error);
+                return null;
+            }
+        });
+
+        return Promise.all(uploadPromises);
+    };
+
+    const onSubmit = async (data) => {
         if (data.description.length > 100) {
             toast.error("Description must be within 100 characters!");
+            return;
+        }
+
+        // Upload images to ImgBB and get URLs
+        toast.info("Uploading images...");
+        const imageUrls = await uploadImagesToImgBB(selectedImages);
+
+        if (imageUrls.includes(null)) {
+            toast.error("Some images failed to upload. Please try again.");
             return;
         }
 
         const storyData = {
             title: data.title,
             description: data.description,
-            images: selectedImages.map(file => URL.createObjectURL(file)), // Temporary preview
+            images: imageUrls, // Store only URLs
+            email: user?.email
         };
 
         console.log("Story Submitted:", storyData);
-        toast.success("Story added successfully!");
-        // reset();
+        const response = await axiosInstanceSecure.post('/story', storyData)
+        console.log(response.data);
+        if (response.data.data.insertedId) toast.success("Story added successfully!"); 
+        else toast.error("Something Went wrong to adding story!")
+
+        // Reset form
+        reset();
         setCharCount(0);
         setSelectedImages([]);
     };
