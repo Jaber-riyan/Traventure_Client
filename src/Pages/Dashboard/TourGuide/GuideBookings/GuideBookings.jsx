@@ -1,20 +1,21 @@
 import React from 'react';
-import BookingsCard from './BookingsCard/BookingsCard';
-import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
-import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import useAuth from '../../../../Hooks/UseAuth/UseAuth';
-import Loading from '../../../Shared/Loading/Loading';
-import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import Loading from '../../../Shared/Loading/Loading';
+import BookingsCard from '../../Tourist/MyBookings/BookingsCard/BookingsCard';
+import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
+import { Helmet } from 'react-helmet-async';
+import GuideBookingsCard from './GuideBookingsCard/GuideBookingsCard';
 
-const MyBookings = () => {
+const GuideBookings = () => {
     const axiosInstanceSecure = UseAxiosSecure()
     const { user } = useAuth()
     const { data: bookings = [], refetch: bookingsRefetch, isLoading: bookingsLoading } = useQuery({
-        queryKey: ["bookings", user?.email],
+        queryKey: ["bookingsGuide", user?.email],
         queryFn: async () => {
-            const { data } = await axiosInstanceSecure(`/booking/${user?.email}`)
+            const { data } = await axiosInstanceSecure(`/guide/bookings/${user?.email}`)
             return data.data
         }
     })
@@ -53,6 +54,7 @@ const MyBookings = () => {
 
     return (
         <div className='mb-32 mt-10'>
+            <Helmet><title>Guide Bookings | Traventure</title></Helmet>
             <section className='mb-5'>
                 <SectionTitle heading={"MANAGE ALL Bookings"} subHeading={"How Many Bookings"}></SectionTitle>
             </section>
@@ -67,19 +69,19 @@ const MyBookings = () => {
                                 <tr className="bg-[#D1A054] text-white">
                                     <th className="py-2 px-4 text-left tracking-[2px] rounded-tl-2xl">NO</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">PACKAGE</th>
-                                    <th className="py-2 px-4 text-left tracking-[2px]">GUIDE NAME</th>
+                                    <th className="py-2 px-4 text-left tracking-[2px]">TOURIST NAME</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">TOUR DATE</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">TOUR PRICE</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">STATUS</th>
-                                    <th className="py-2 px-4 text-left tracking-[2px]">PAYMENT</th>
-                                    <th className="py-2 px-4 text-left tracking-[2px] rounded-tr-2xl">ACTION</th>
+                                    <th className="py-2 px-4 text-left tracking-[2px]">ACCEPT</th>
+                                    <th className="py-2 px-4 text-left tracking-[2px] rounded-tr-2xl">REJECT</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 {
                                     bookings?.length > 0 ? bookings?.map((booking, index) => {
-                                        return <BookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} index={index}></BookingsCard>
+                                        return <GuideBookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} index={index}></GuideBookingsCard>
 
                                     }) :
 
@@ -100,4 +102,4 @@ const MyBookings = () => {
     );
 };
 
-export default MyBookings;
+export default GuideBookings;

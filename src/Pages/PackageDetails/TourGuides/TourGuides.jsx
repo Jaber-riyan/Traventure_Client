@@ -5,7 +5,7 @@ import Loading from '../../Shared/Loading/Loading';
 
 const TourGuides = () => {
     const { tourGuides, tourGuidesRefetch, tourGuidesLoading } = UseTourGuide()
-    console.log(tourGuides);
+    // console.log(tourGuides);
     if (tourGuidesLoading) return <Loading></Loading>
     return (
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>

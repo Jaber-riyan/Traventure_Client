@@ -184,7 +184,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/assigned-tour"
+                                        to="/dashboard/tour-guide/assigned-tour"
                                         onClick={closeDrawer}
                                     >
                                         <MdTour size={20} />

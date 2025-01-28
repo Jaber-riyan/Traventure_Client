@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import SectionTitle from '../../Components/SectionTitle/SectionTitle';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Shared/Loading/Loading';
@@ -20,11 +20,22 @@ import { Navigation } from 'swiper/modules';
 import { Helmet } from 'react-helmet-async';
 import UseTourGuide from '../../Hooks/UseTourGuide/UseTourGuide';
 import TourGuides from './TourGuides/TourGuides';
+import BookingModal from './BookingModal/BookingModal';
+import useAuth from '../../Hooks/UseAuth/UseAuth';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 
 
 const PackageDetails = () => {
     const params = useParams();
     const axiosInstanceNormal = UseAxiosNormal()
+    const axiosInstanceSecure = UseAxiosSecure()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { tourGuides, tourGuidesLoading, tourGuidesRefetch } = UseTourGuide()
+    // console.log("tour guides", tourGuides);
+    const { user, handleLogout, setUser } = useAuth();
+    const navigate = useNavigate();
 
     const { data: tourPackage = {}, refetch: packageRefetch, isLoading: packageLoading } = useQuery({
         queryFn: async () => {
@@ -33,9 +44,52 @@ const PackageDetails = () => {
         }
     })
 
+    const handleBookingSubmit = async (data) => {
+        if (!user?.email) {
+            handleLogout()
+                .then(res => {
+                    Swal.fire({
+                        title: "Logout Successfully",
+                        icon: 'success'
+                    });
+                    setUser(null);
+                    navigate('/login');
+                })
+                .catch(error => {
+                    const errorCode = error.code.split("auth/")[1];
+                    const formattedError = errorCode
+                        .split("-")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(" ");
+                    toast.error(formattedError);
+                });
+            return
+        }
+        console.log("Booking Details:", data);
+        console.log(new Date(data.tourDate).toDateString());
+        const submitData = {
+            packageName: name,
+            touristName: user?.displayName,
+            touristEmail: user?.email,
+            touristImage: user?.photoURL,
+            packagePrice: price,
+            tourDate: new Date(data.tourDate).toDateString(),
+            tourGuide: data.selectedGuide,
+            status: "pending"
+        }
+        console.log(submitData);
+        const response = await axiosInstanceSecure.post('/booking', submitData)
+        if (response.data.data.insertedId) {
+            toast.success("Successfully Booked Tour Package")
+            navigate('/dashboard/tourist/bookings')
+        }
+        else toast.error("Something went wrong to booking!")
+        setIsModalOpen(false);
+    };
+
     if (packageLoading) return <Loading></Loading>
 
-    console.log(tourPackage, {packageLoading});
+    // console.log(tourPackage, { packageLoading });
     const { _id, name, duration, price, planData, category, description, placePhoto1, placePhoto2, placePhoto3 } = tourPackage
 
     return (
@@ -68,9 +122,9 @@ const PackageDetails = () => {
                 </p>
                 <div className="flex items-center justify-between mt-4">
                     <span className="text-xl font-bold text-orange-500"><span className='font-bold'>Price: </span> ৳ {price}</span>
-                    <Link to={`/package-details/${_id}`} className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                    <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
                         Book Now
-                    </Link>
+                    </button>
                 </div>
             </div>
 
@@ -93,6 +147,16 @@ const PackageDetails = () => {
                     })
                 }
             </div>
+
+            {/* Booking Modal */}
+            <BookingModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                packageDetails={{ name, price }}
+                user={user}
+                guides={tourGuides}
+                onSubmit={handleBookingSubmit}
+            />
 
             {/* meet tour guides  */}
             <section>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const TourGuideCard = ({ guide }) => {
     const { photo, name, phone, _id, designation, applicationTitle } = guide;
-    console.log(guide);
+    // console.log(guide);
 
     return (
         <Link to={`/guide/${_id}`} className="w-full sm:w-64 bg-gray-500 text-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center animate__animated animate__fadeIn">
