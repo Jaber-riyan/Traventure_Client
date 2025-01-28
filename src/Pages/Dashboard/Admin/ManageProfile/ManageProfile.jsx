@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import { Link } from 'react-router-dom';
 import UseUser from '../../../../Hooks/UseUser/UseUser';
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -22,6 +23,10 @@ const ManageProfile = () => {
 
     return (
         <div className='mt-10'>
+            <Helmet><title>Manage Profile | Traventure</title></Helmet>
+            <section className='text-orange-600 underline'>
+                <SectionTitle heading={"Welcome To your Profile!"} subHeading={""}></SectionTitle>
+            </section>
             <section>
                 {/* section title  */}
                 <SectionTitle heading={"Admin States"} subHeading={""}></SectionTitle>
@@ -106,7 +111,7 @@ const ManageProfile = () => {
                 </div>
                 {/* edit button for editing profile  */}
                 <div className='flex justify-center'>
-                    <Link to={`/dashboard/admin/profile/edit`}>
+                    <Link to={`/dashboard/profile/edit`}>
                         <button className='bg-blue-500 px-7 py-3 hover:bg-white transition-all duration-500 hover:text-black rounded-xl text-white font-bold'>Edit</button>
                     </Link>
                 </div>

@@ -19,7 +19,7 @@ const AdminProfileUpdate = () => {
     const axiosInstanceSecure = UseAxiosSecure();
     const { handleRegister, setUser, user, googleRegister } = useAuth()
     const { userData, userRefetch } = UseUser();
-    console.log(userData);
+    // console.log(userData);
 
 
 
@@ -53,6 +53,8 @@ const AdminProfileUpdate = () => {
             email: userEmail,
             id: userData?._id
         }
+
+        console.log({adminInfo, userPhoto});
         console.log(adminInfo);
         // send to server 
         const userUpdateRes = await axiosInstanceSecure.patch('/user', adminInfo);
@@ -75,7 +77,7 @@ const AdminProfileUpdate = () => {
                 <form onSubmit={handleSubmit(handleSubmitAddItem)} className="space-y-6">
                     {/* User Name */}
                     <div className="form-group">
-                        <label htmlFor="recipeName" className="block text-lg font-semibold mb-2">Admin name</label>
+                        <label htmlFor="recipeName" className="block text-lg font-semibold mb-2">Name</label>
                         <input
                             type="text"
                             id="userName"
@@ -90,7 +92,7 @@ const AdminProfileUpdate = () => {
                     <div className='grid md:grid-cols-2 grid-cols-1 gap-6'>
                         {/* User Email */}
                         <div className="form-group">
-                            <label htmlFor="category" className="block text-lg font-semibold mb-2">Admin Email</label>
+                            <label htmlFor="category" className="block text-lg font-semibold mb-2">Email</label>
                             <input
                                 type="email"
                                 id="userEmail"

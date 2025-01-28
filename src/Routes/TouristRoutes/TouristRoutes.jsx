@@ -5,7 +5,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import Loading from '../../Pages/Shared/Loading/Loading';
 import { toast } from 'react-toastify';
 
-const AdminRoutes = ({ children }) => {
+const TouristRoutes = ({ children }) => {
     const { user, loading } = useAuth();
     const { role, roleLoading } = UseAdmin();
     const location = useLocation();
@@ -17,7 +17,7 @@ const AdminRoutes = ({ children }) => {
         return <Loading></Loading>
     }
 
-    if (user && role === "admin") {
+    if (user && role === "tourist") {
         return children;
     }
 
@@ -30,4 +30,4 @@ const AdminRoutes = ({ children }) => {
 
 };
 
-export default AdminRoutes;
+export default TouristRoutes;

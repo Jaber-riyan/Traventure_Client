@@ -260,7 +260,7 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink
                                         className="flex items-center gap-3 font-bold"
-                                        to="/dashboard/admin/manage-stories"
+                                        to="/dashboard/tourist/join-guide"
                                         onClick={closeDrawer}
                                     >
                                         <IoMdPersonAdd size={20} />

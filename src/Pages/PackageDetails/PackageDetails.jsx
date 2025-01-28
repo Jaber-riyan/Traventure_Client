@@ -18,6 +18,7 @@ import 'swiper/css/navigation';
 // import required modules
 import { Navigation } from 'swiper/modules';
 import { Helmet } from 'react-helmet-async';
+import UseTourGuide from '../../Hooks/UseTourGuide/UseTourGuide';
 
 
 const PackageDetails = () => {
@@ -78,7 +79,7 @@ const PackageDetails = () => {
             </section>
             <div className='space-y-5 mb-16'>
                 {
-                    planData?.length && planData.map((plan, index) => {
+                    planData?.length && planData?.map((plan, index) => {
                         return (
                             <>
                                 <div className='bg-gray-200 shadow-xl p-9 rounded-lg'>
@@ -96,6 +97,9 @@ const PackageDetails = () => {
             <section>
                 <SectionTitle heading={"meet our expert tour guides"} subHeading={""}></SectionTitle>
             </section>
+            <div>
+                {/* {tourGuides.length} */}
+            </div>
         </div>
     );
 };

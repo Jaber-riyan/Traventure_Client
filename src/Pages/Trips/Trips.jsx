@@ -7,6 +7,7 @@ import AssignedTourCard from '../Dashboard/Admin/AssignedTour/AssignedTourCard/A
 
 const Trips = () => {
     const { packages, packagesLoading } = UsePackages()
+    console.log(packages);
 
     if (packagesLoading) return <Loading></Loading>
     return (

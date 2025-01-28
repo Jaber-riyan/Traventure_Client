@@ -28,7 +28,7 @@ const AssignedTourCard = ({ tourPackage }) => {
         <div className="p-4 text-gray-800 flex flex-col justify-between flex-grow">
           <h3 className="text-lg font-bold">{name}</h3>
           <p className="text-sm text-gray-600 mt-2 leading-snug flex-grow">
-            {description.slice(0, 200)} <span className="font-bold">more...</span>
+            {description?.slice(0, 200)} <span className="font-bold">more...</span>
           </p>
           <div className="flex items-center justify-between mt-4">
             <span className="text-lg font-bold text-orange-500">৳ {price}</span>

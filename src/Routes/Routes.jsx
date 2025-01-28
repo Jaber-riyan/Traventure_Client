@@ -17,6 +17,9 @@ import TourGuideRoutes from './TourGuideRoutes/TourGuideRoutes';
 import AssignedTour from '../Pages/Dashboard/Admin/AssignedTour/AssignedTour';
 import PackageDetails from '../Pages/PackageDetails/PackageDetails';
 import Trips from '../Pages/Trips/Trips';
+import TouristRoutes from './TouristRoutes/TouristRoutes';
+import ManageProfileTourist from '../Pages/Dashboard/Tourist/ManageProfileTourist/ManageProfileTourist';
+import MyBookings from '../Pages/Dashboard/Tourist/MyBookings/MyBookings';
 
 const router = createBrowserRouter([
     {
@@ -55,14 +58,15 @@ const router = createBrowserRouter([
         element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
         errorElement: <ErrorForRoot></ErrorForRoot>,
         children: [
+            // shared routes 
+            {
+                path: 'profile/edit',
+                element: <AdminProfileUpdate></AdminProfileUpdate>
+            },
             // admin routes start
             {
                 path: 'admin/profile',
                 element: <AdminRoutes><ManageProfile></ManageProfile></AdminRoutes>
-            },
-            {
-                path: 'admin/profile/edit',
-                element: <AdminRoutes><AdminProfileUpdate></AdminProfileUpdate></AdminRoutes>
             },
             {
                 path: 'admin/manage-users',
@@ -94,7 +98,15 @@ const router = createBrowserRouter([
             // tourist routes start 
             {
                 path: 'tourist/profile',
-                element: <PrivateRoutes><div>tourist profile</div></PrivateRoutes>
+                element: <TouristRoutes><ManageProfileTourist></ManageProfileTourist></TouristRoutes>
+            },
+            {
+                path: 'tourist/join-guide',
+                element: <div>Tourist Join guide request</div>
+            },
+            {
+                path: 'tourist/bookings',
+                element: <TouristRoutes><MyBookings></MyBookings></TouristRoutes>
             },
             // tourist routes end
 

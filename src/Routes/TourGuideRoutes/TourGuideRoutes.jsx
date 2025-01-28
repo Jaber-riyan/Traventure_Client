@@ -22,7 +22,7 @@ const TourGuideRoutes = ({ children }) => {
     return (
         <>
             {toast.error("You are not a valid user")}
-            <Navigate to={'/'} state={location.pathname}></Navigate>
+            <Navigate to={'/'}></Navigate>
         </>
     )
 };
