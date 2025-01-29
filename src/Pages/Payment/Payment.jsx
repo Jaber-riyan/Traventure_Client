@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
+import { useParams } from "react-router-dom";
 
 // stripe promise 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
@@ -12,10 +13,11 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 
 const Payment = () => {
+    
     return (
         <div className="min-h-screen">
             <section className="mt-10">
-                <SectionTitle heading={"Payment"} subHeading={"Eat after Paying :)"}></SectionTitle>
+                <SectionTitle heading={"Payment"} subHeading={"Pay after Travel :)"}></SectionTitle>
             </section>
             <section>
                 <Elements stripe={stripePromise}>

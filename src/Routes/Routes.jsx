@@ -29,6 +29,7 @@ import AllStories from '../Pages/AddStories/AllStories/AllStories';
 import Community from '../Pages/Community/Community';
 import GuideBookings from '../Pages/Dashboard/TourGuide/GuideBookings/GuideBookings';
 import Payment from '../Pages/Payment/Payment';
+import PaymentHistory from '../Pages/PaymentHistory/PaymentHistory';
 
 const router = createBrowserRouter([
     {
@@ -139,10 +140,15 @@ const router = createBrowserRouter([
             },
             // tour guide routes end 
 
+            // payment related routes 
             {
-                path: 'payment',
+                path: 'payment/:id/:price',
                 element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
-            }
+            },
+            {
+                path: 'payment-history',
+                element: <PrivateRoutes><PaymentHistory></PaymentHistory></PrivateRoutes>
+            },
 
         ]
     }

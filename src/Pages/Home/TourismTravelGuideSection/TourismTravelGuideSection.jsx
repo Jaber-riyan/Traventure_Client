@@ -2,6 +2,7 @@ import React from 'react';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs'
 import OurPackages from './OurPackages/OurPackages';
 import TourGuides from './TourGuides/TourGuides';
+import TourGuidesTab from './TourGuides/TourGuides';
 
 const TourismTravelGuideSection = () => {
     return (
@@ -34,7 +35,7 @@ const TourismTravelGuideSection = () => {
 
                     {/* meet our tour guides tab  */}
                     <TabPanel>
-                        <TourGuides></TourGuides>
+                        <TourGuidesTab></TourGuidesTab>
                     </TabPanel>
                 </Tabs>
             </section>

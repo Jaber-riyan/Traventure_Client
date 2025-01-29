@@ -126,7 +126,6 @@ const Login = () => {
                                     id="email"
                                     name='email'
                                     {...register("email", { required: true })}
-                                    defaultValue={"jaberriyan357@gmail.com"}
                                     placeholder="Enter your email address"
                                     className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
                                 />
@@ -145,7 +144,6 @@ const Login = () => {
                                     id="password"
                                     name='password'
                                     {...register("password", { required: true })}
-                                    value={"123456Jaa"}
                                     placeholder="Enter your password"
                                     className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
                                 />
@@ -179,12 +177,12 @@ const Login = () => {
                     </p>
 
 
-                    {/* <button disabled={!captchaMatch} className={`w-full py-2 mt-4 rounded-md  text-white ${!captchaMatch ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#D1A054B3] hover:bg-[#d19f54f8]'}`}>
-                        Login
-                    </button> */}
-                    <button className={`w-full py-2 mt-4 rounded-md  text-white bg-[#D1A054B3] hover:bg-[#d19f54f8]`}>
+                    <button disabled={!captchaMatch} className={`w-full py-2 mt-4 rounded-md  text-white ${!captchaMatch ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#D1A054B3] hover:bg-[#d19f54f8]'}`}>
                         Login
                     </button>
+                    {/* <button className={`w-full py-2 mt-4 rounded-md  text-white bg-[#D1A054B3] hover:bg-[#d19f54f8]`}>
+                        Login
+                    </button> */}
                     <div className="divider"></div>
                     <SocialLogin></SocialLogin>
 

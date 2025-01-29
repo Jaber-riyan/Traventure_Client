@@ -26,13 +26,13 @@ const BookingsCard = ({ index, booking, handleDelete }) => {
             <td className="py-2 px-4 text-[#737373]">{booking.tourDate}</td>
             <td className="py-2 px-4 text-[#737373]">{booking.packagePrice}</td>
             <td className="py-2 px-4 text-[#737373]">
-                <button className={`font-bold text-[1rem] capitalize btn bg-blue-600 text-white`}>{booking?.status}</button>
+                <button className={`font-bold text-[1rem] capitalize btn bg-blue-600 text-white ${bookingStatus == "accepted" ? 'bg-green-600' : bookingStatus == "in review" ? 'bg-blue-600' : 'bg-sky-500'}`}>{booking?.status}</button>
             </td>
             <td className="py-2 px-4 text-[#737373]">
-                <Link to={"/dashboard/payment"} disabled={!bookingStatus==="pending"} className={`font-bold text-[1rem] capitalize btn bg-orange-500 text-white`}>Pay</Link>
+                <Link to={`/dashboard/payment/${booking._id}/${booking.packagePrice}`} disabled={bookingStatus !== "pending"} className={`font-bold text-[1rem] capitalize btn bg-orange-500 text-white`}>Pay</Link>
             </td>
             <td className="py-2 px-4 text-[#737373]">
-                <button disabled={!bookingStatus==="pending"} onClick={() => handleDelete(booking?._id)} className={`font-bold text-[1rem] capitalize btn bg-red-600 text-white`}>Cancel</button>
+                <button disabled={bookingStatus !== "pending"} onClick={() => handleDelete(booking?._id)} className={`font-bold text-[1rem] capitalize btn bg-red-600 text-white`}>Cancel</button>
             </td>
         </tr>
     );

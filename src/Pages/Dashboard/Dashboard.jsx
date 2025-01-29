@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook, MdAdd, MdOutlineVerifiedUser } from "react-icons/md";
+import { MdLogout, MdTour, MdManageHistory, MdBookOnline, MdBook, MdAdd, MdOutlineVerifiedUser, MdMoreTime } from "react-icons/md";
 import { TbBrandDaysCounter } from "react-icons/tb";
 import { FaChevronCircleRight, FaHome, FaUserCheck, FaUsersCog } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -265,6 +265,16 @@ const Dashboard = () => {
                                     >
                                         <IoMdPersonAdd size={20} />
                                         Join as tour guide
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className="flex items-center gap-3 font-bold"
+                                        to="/dashboard/payment-history"
+                                        onClick={closeDrawer}
+                                    >
+                                        <MdMoreTime size={20} />
+                                        Payment History
                                     </NavLink>
                                 </li>
                             </>

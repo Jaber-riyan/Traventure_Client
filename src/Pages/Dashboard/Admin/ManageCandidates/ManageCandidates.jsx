@@ -5,6 +5,7 @@ import ManageCandidatesCard from './ManageCandidatesCard/ManageCandidatesCard';
 import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
 import UseCandidates from '../../../../Hooks/UseCandidates/UseCandidates';
 import Loading from '../../../Shared/Loading/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const ManageCandidates = () => {
     const axiosInstanceSecure = UseAxiosSecure()
@@ -80,6 +81,7 @@ const ManageCandidates = () => {
 
     return (
         <div className='mb-44 mt-7'>
+            <Helmet><title>Candidates | Traventure</title></Helmet>
             <section className='mb-5'>
                 <SectionTitle heading={"MANAGE CANDIDATES"} subHeading={"How Many Request?"}></SectionTitle>
             </section>

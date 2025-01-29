@@ -7,15 +7,15 @@ const UsePaymentHistory = () => {
     const axiosInstanceNormal = UseAxiosSecure();
     const { user } = useAuth();
 
-    const { data: paymentHistory, refetch: paymentHistoryRefetch } = useQuery({
+    const { data: paymentHistory, refetch: paymentHistoryRefetch, isLoading } = useQuery({
         queryKey: ['payment-history'],
         queryFn: async () => {
             const res = await axiosInstanceNormal.get(`/payment-history/${user?.email}`);
             return res.data;
-        }
+        },
     })
 
-    return { paymentHistory, paymentHistoryRefetch };
+    return { paymentHistory, paymentHistoryRefetch, isLoading };
 };
 
 export default UsePaymentHistory;

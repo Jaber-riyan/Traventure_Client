@@ -16,7 +16,7 @@ const Trips = () => {
             <section >
                 <SectionTitle heading={"Our Tour packages"} subHeading={"To Easy To go Tour"}></SectionTitle>
             </section>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-1'>
                 {
                     packages?.length && packages.map((tourPackage, index) => <AssignedTourCard key={tourPackage._id} tourPackage={tourPackage}></AssignedTourCard>)
                 }

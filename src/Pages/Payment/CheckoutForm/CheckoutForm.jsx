@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { toast } from 'react-toastify';
 // import UseCart from '../../../../Hooks/UseCart/UseCart';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UsePaymentHistory from '../../../Hooks/UsePaymentHistory/UsePaymentHistory';
 import UseAxiosSecure from '../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
@@ -14,25 +14,23 @@ const CheckoutForm = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [transactionId, setTransactionId] = useState("");
     const axiosInstanceSecure = UseAxiosSecure();
-    // const [cart, refetch] = UseCart();
-    const { paymentHistory, paymentHistoryRefetch } = UsePaymentHistory();
-    // const price = cart?.data?.reduce((sum, item) => sum + item?.price, 0);
-    // console.log(price);
+    const { price, id: packageId } = useParams()
+    // console.log(price, id);
     const [clientSecret, setClientSecret] = useState("");
     const { user } = useAuth();
     const navigate = useNavigate();
 
 
-    // useEffect(() => {
-    //     if (price > 0) {
-    //         axiosInstanceSecure.post('/create-payment-intent', { price: parseFloat(price) })
-    //             .then(res => {
-    //                 console.log(res.data.clientSecret);
-    //                 setClientSecret(res.data.clientSecret);
-    //             })
-    //     }
+    useEffect(() => {
+        if (price > 0) {
+            axiosInstanceSecure.post('/create-payment-intent', { price: parseFloat(price) })
+                .then(res => {
+                    console.log(res.data.clientSecret);
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
 
-    // }, [axiosInstanceSecure, price])
+    }, [axiosInstanceSecure, price])
 
     console.log(clientSecret);
 
@@ -85,9 +83,8 @@ const CheckoutForm = () => {
             toast.error(confirmPaymentError.message, { position: 'top-right' }
             );
         }
+
         else {
-            // setErrorMsg("");
-            // toast.success("Payment successful", { position: 'top-right' });
             if (paymentIntent.status === "succeeded") {
                 // console.log(paymentIntent);
                 const timestamp = paymentIntent.created;
@@ -102,48 +99,24 @@ const CheckoutForm = () => {
                     hour12: true,
                     timeZoneName: 'short',
                 });
-                // const paymentInfo = {
-                //     email: user?.email,
-                //     totalPrice: price,
-                //     category: 'Food Order',
-                //     paymentDate: formattedDate,
-                //     trxid: paymentIntent.id,
-                //     cartIds: cart?.data?.map(item => item?._id),
-                //     menuItemIds: cart?.data?.map(item => item?.menuItemId),
-                //     orderedItems: cart?.data?.map(item => item?.name),
-                //     status: "pending"
-                // }
+                const paymentInfo = {
+                    email: user?.email,
+                    totalPrice: price,
+                    paymentDate: formattedDate,
+                    trxid: paymentIntent.id,
+                    packageId: packageId,
+                    status: "pending"
+                }
 
-                // delete all the items from the cart API calling
-                // const { data: deleteCartRes } = await axiosInstanceSecure.delete(`/cart/all/${user?.email}`);
 
                 // add payment history API calling 
-                // const { data: addPayment } = await axiosInstanceSecure.post('/add-payment-statement', paymentInfo);
-
-                // console.log(deleteCartRes);
-                // console.log(addPaymentHistoryRes);
-                // Swal.fire({
-                //     title: "Do you want to pay?",
-                //     showCancelButton: true,
-                //     confirmButtonText: "Yes",
-                // }).then((result) => {
-                //     /* Read more about isConfirmed, isDenied below */
-                //     if (result.isConfirmed) {
-
-
-                //     }
-                // });
-
-                // if (addPayment?.deletedResult?.deletedCount > 0 && addPayment?.insertedResult?.insertedId) {
-                //     refetch();
-                //     paymentHistoryRefetch();
-                //     // console.log(paymentIntent);
-                //     setTransactionId(paymentIntent.id);
-                //     toast.success("Thanks You for paying TK Paisa", { position: 'top-right' });
-                //     navigate('/dashboard/payment-history')
-                // }
-
-                // console.log(formattedDate);
+                const { data: addPayment } = await axiosInstanceSecure.post('/add-payment-statement', paymentInfo);
+                console.log(addPayment);
+                if (addPayment.status) {
+                    toast.success("Payment Successfully")
+                    navigate("/dashboard/payment-history")
+                }
+                else toast.error("Something went wrong to payment")
             }
 
         }

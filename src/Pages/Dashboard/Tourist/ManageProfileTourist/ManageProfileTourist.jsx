@@ -3,12 +3,14 @@ import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
 import useAuth from '../../../../Hooks/UseAuth/UseAuth';
 import UseUser from '../../../../Hooks/UseUser/UseUser';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const ManageProfileTourist = () => {
     const { user } = useAuth();
     const { userData } = UseUser();
     return (
         <div>
+            <Helmet><title>Profile | Traventure</title></Helmet>
             <section>
                 {/* section title  */}
                 <SectionTitle heading={"Tourist Information"} subHeading={""}></SectionTitle>

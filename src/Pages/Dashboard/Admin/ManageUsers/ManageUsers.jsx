@@ -7,6 +7,7 @@ import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
 import UseAxiosNormal from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
 import Loading from '../../../Shared/Loading/Loading';
+import {Helmet} from 'react-helmet-async'
 
 const ManageUsers = () => {
     const axiosInstanceSecure = UseAxiosSecure();
@@ -27,6 +28,7 @@ const ManageUsers = () => {
 
     return (
         <div className='mb-10'>
+            <Helmet><title>All Users | Traventure</title></Helmet>
             <section className='mb-5'>
                 <SectionTitle heading={"MANAGE ALL USERS"} subHeading={"How Many"}></SectionTitle>
             </section>

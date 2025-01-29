@@ -1,11 +1,12 @@
 import React from 'react';
+import TourGuides from '../../../PackageDetails/TourGuides/TourGuides';
 
-const TourGuides = () => {
+const TourGuidesTab = () => {
     return (
         <div>
-            tour guides
+            <TourGuides></TourGuides>
         </div>
     );
 };
 
-export default TourGuides;
+export default TourGuidesTab;

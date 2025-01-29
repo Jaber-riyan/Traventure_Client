@@ -11,6 +11,7 @@ import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSe
 import { Link } from 'react-router-dom';
 import UseUser from '../../../../Hooks/UseUser/UseUser';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../../../Shared/Loading/Loading';
 
 
 
@@ -18,6 +19,19 @@ import { Helmet } from 'react-helmet-async';
 const ManageProfile = () => {
     const { user } = useAuth();
     const { userData } = UseUser();
+    const axiosInstanceSecure = UseAxiosSecure()
+
+    const { data: adminStates, isLoading } = useQuery({
+        queryKey: ["adminStates", user?.email],
+        queryFn: async () => {
+            const { data } = await axiosInstanceSecure('/admin/states')
+            return data
+        }
+    })
+
+    console.log(adminStates);
+
+    if(isLoading) return <Loading></Loading>
 
 
 
@@ -39,7 +53,7 @@ const ManageProfile = () => {
                         <GiWallet color='white' size={40} />
                     </div>
                     <div>
-                        <h2 className='text-2xl font-bold text-white'>10000</h2>
+                        <h2 className='text-2xl font-bold text-white'>{adminStates?.totalPayment}</h2>
                         <p className='text-white text-xl'>Total Payment</p>
                     </div>
                 </div>
@@ -50,7 +64,7 @@ const ManageProfile = () => {
                         <FaUsers color='white' size={40} />
                     </div>
                     <div>
-                        <h2 className='text-2xl font-bold text-white'>3</h2>
+                        <h2 className='text-2xl font-bold text-white'>{adminStates?.totalTourGuide?.length}</h2>
                         <p className='text-white text-xl'>Total Tour Guides</p>
                     </div>
                 </div>
@@ -61,7 +75,7 @@ const ManageProfile = () => {
                         <AiOutlineProduct color='white' size={40} />
                     </div>
                     <div>
-                        <h2 className='text-2xl font-bold text-white'>6</h2>
+                        <h2 className='text-2xl font-bold text-white'>{adminStates?.totalPackages}</h2>
                         <p className='text-white text-xl'>Packages</p>
                     </div>
                 </div>
@@ -72,7 +86,7 @@ const ManageProfile = () => {
                         <MdLocalShipping color='white' size={40} />
                     </div>
                     <div>
-                        <h2 className='text-2xl font-bold text-white'>7</h2>
+                        <h2 className='text-2xl font-bold text-white'>{adminStates?.totalClient?.length}</h2>
                         <p className='text-white text-xl'>Total Clients</p>
                     </div>
                 </div>
@@ -83,7 +97,7 @@ const ManageProfile = () => {
                         <MdLocalShipping color='white' size={40} />
                     </div>
                     <div>
-                        <h2 className='text-2xl font-bold text-white'>10</h2>
+                        <h2 className='text-2xl font-bold text-white'>{adminStates?.totalStories}</h2>
                         <p className='text-white text-xl'>Total Stories</p>
                     </div>
                 </div>

@@ -46,23 +46,11 @@ const PackageDetails = () => {
 
     const handleBookingSubmit = async (data) => {
         if (!user?.email) {
-            handleLogout()
-                .then(res => {
-                    Swal.fire({
-                        title: "Logout Successfully",
-                        icon: 'success'
-                    });
-                    setUser(null);
-                    navigate('/login');
-                })
-                .catch(error => {
-                    const errorCode = error.code.split("auth/")[1];
-                    const formattedError = errorCode
-                        .split("-")
-                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(" ");
-                    toast.error(formattedError);
-                });
+            Swal.fire({
+                title: "Login First then Booking Package",
+                icon: "error"
+            })
+            navigate('/login');
             return
         }
         console.log("Booking Details:", data);

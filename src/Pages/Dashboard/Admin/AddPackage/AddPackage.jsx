@@ -10,6 +10,7 @@ import SectionTitle from '../../../../Components/SectionTitle/SectionTitle';
 import { toast } from 'react-toastify';
 import UseUser from '../../../../Hooks/UseUser/UseUser';
 import auth from '../../../../Firebase/Firebase.config';
+import { Helmet } from 'react-helmet-async';
 
 
 const ImageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -90,6 +91,7 @@ const AddPackage = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <Helmet><title>Add Package | Traventure</title></Helmet>
             <section className="mb-5">
                 <SectionTitle heading={"Add Tour Package"} subHeading={"What's New?"}></SectionTitle>
             </section>

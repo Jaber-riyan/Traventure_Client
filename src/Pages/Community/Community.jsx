@@ -5,6 +5,7 @@ import UseStories from '../../Hooks/UseStories/UseStories';
 import StoryCard from '../AddStories/StoryCard/StoryCard';
 import UseAxiosNormal from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
 import { useQuery } from '@tanstack/react-query';
+import {Helmet} from 'react-helmet-async'
 
 const Community = () => {
 
@@ -23,10 +24,11 @@ const Community = () => {
 
     return (
         <div className='md:min-h-screen mt-20 mb-16 p-5'>
+            <Helmet><title>Community | Traventure</title></Helmet>
             <section>
                 <SectionTitle heading={"community"} subHeading={""}></SectionTitle>
             </section>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {
                     stories?.length > 0 && stories.map(story => <StoryCard key={story?._id} story={story}></StoryCard>)
                 }

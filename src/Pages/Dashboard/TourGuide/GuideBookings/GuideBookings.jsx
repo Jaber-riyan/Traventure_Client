@@ -30,7 +30,7 @@ const GuideBookings = () => {
             if (result.isConfirmed) {
                 const { data } = await axiosInstanceSecure.delete(`/booking/${id}`)
                 console.log(data);
-                if (data.data.status) {
+                if (data.status) {
                     Swal.fire({
                         title: "Cancel The Booking",
                         icon: 'success',
@@ -40,6 +40,36 @@ const GuideBookings = () => {
                 else {
                     Swal.fire({
                         title: "Something Went wrong for delete Booking",
+                        icon: 'info',
+                    })
+                }
+            }
+            // else if (result.isDenied) {
+            //     Swal.fire("Work is not perform", "", "info");
+            // }
+        });
+    }
+
+    const handleAcceptBooking = (id) => {
+        Swal.fire({
+            title: "Do you want to delete Booking?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await axiosInstanceSecure.get(`/booking/accepted/${id}`)
+                console.log(data);
+                if (data.status) {
+                    Swal.fire({
+                        title: "Accepted The Booking",
+                        icon: 'success',
+                    })
+                    bookingsRefetch()
+                }
+                else {
+                    Swal.fire({
+                        title: "Something Went wrong for accepting Booking",
                         icon: 'info',
                     })
                 }
@@ -81,7 +111,7 @@ const GuideBookings = () => {
 
                                 {
                                     bookings?.length > 0 ? bookings?.map((booking, index) => {
-                                        return <GuideBookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} index={index}></GuideBookingsCard>
+                                        return <GuideBookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} handleAcceptBooking={handleAcceptBooking} index={index}></GuideBookingsCard>
 
                                     }) :
 

@@ -7,6 +7,7 @@ import useAuth from '../../../../Hooks/UseAuth/UseAuth';
 import Loading from '../../../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const MyBookings = () => {
     const axiosInstanceSecure = UseAxiosSecure()
@@ -29,7 +30,7 @@ const MyBookings = () => {
             if (result.isConfirmed) {
                 const { data } = await axiosInstanceSecure.delete(`/booking/${id}`)
                 console.log(data);
-                if (data.data.status) {
+                if (data.status) {
                     Swal.fire({
                         title: "Cancel The Booking",
                         icon: 'success',
@@ -53,6 +54,7 @@ const MyBookings = () => {
 
     return (
         <div className='mb-32 mt-10'>
+            <Helmet><title>Bookings | Traventure</title></Helmet>
             <section className='mb-5'>
                 <SectionTitle heading={"MANAGE ALL Bookings"} subHeading={"How Many Bookings"}></SectionTitle>
             </section>

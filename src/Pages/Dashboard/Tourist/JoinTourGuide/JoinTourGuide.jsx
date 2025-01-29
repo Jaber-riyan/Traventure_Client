@@ -6,6 +6,7 @@ import { MdTitle, MdWork } from 'react-icons/md';
 import useAuth from '../../../../Hooks/UseAuth/UseAuth';
 import UseUser from '../../../../Hooks/UseUser/UseUser';
 import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const JoinTourGuide = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
@@ -37,6 +38,7 @@ const JoinTourGuide = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-blue-100 to-white">
+            <Helmet><title>Join Tour Guide | Traventure</title></Helmet>
             <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
                 <h2 className="text-2xl font-bold text-center text-orange-500">Become a Tour Guide</h2>
                 <p className="text-center text-gray-600 mb-6">Share your passion for traveling and show others the wonders of our beautiful and diverse world.</p>
