@@ -23,19 +23,19 @@ const Community = () => {
     if (storiesLoading) return <Loading></Loading>
 
     return (
-        <div className='md:min-h-screen mt-20 mb-16 p-5'>
+        <div className='md:min-h-screen pt-24 pb-16 p-5 bg-gray-100 dark:bg-gray-900'>
             <Helmet><title>Community | Traventure</title></Helmet>
             <section>
                 <SectionTitle heading={"community"} subHeading={""}></SectionTitle>
             </section>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
                     stories?.length > 0 && stories.map(story => <StoryCard key={story?._id} story={story}></StoryCard>)
                 }
             </div>
             {
                 stories?.length < 0 && <div className='flex justify-center items-center min-h-screen'>
-                    <h2 className='font-bold text-4xl text-red-600'>No Added Story :(</h2>
+                    <h2 className='font-bold text-4xl text-red-600 dark:text-red-400'>No Added Story :(</h2>
                 </div>
             }
         </div>

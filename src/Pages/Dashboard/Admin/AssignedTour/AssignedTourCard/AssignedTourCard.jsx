@@ -7,7 +7,7 @@ const AssignedTourCard = ({ tourPackage }) => {
   const { _id, category, placePhoto1, price, name, description, duration } = tourPackage;
 
   return (
-    <div className="w-full p-4 animate__animated animate__fadeIn dark:shadow-[0_0_10px_#fff] rounded-2xl hover:scale-105 transition-all duration-500">
+    <div className="w-full p-4 animate__animated animate__fadeIn dark:shadow-[0_0_10px_#fff] shadow-[0_0_10px_#000] rounded-2xl hover:scale-105 transition-all duration-500">
       <div className="relative bg-white dark:bg-gray-800 rounded-md shadow-xl h-[400px] flex flex-col justify-between dark:shadow-gray-900">
         
         {/* Badge - Category */}

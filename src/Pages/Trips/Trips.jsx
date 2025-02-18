@@ -10,16 +10,21 @@ const Trips = () => {
     console.log(packages);
 
     if (packagesLoading) return <Loading></Loading>
+
     return (
-        <div className='mt-28 md:w-[80%] mx-auto w-[90%] mb-10'>
-            <Helmet><title>Trips | Traventure</title></Helmet>
-            <section >
-                <SectionTitle heading={"Our Tour packages"} subHeading={"To Easy To go Tour"}></SectionTitle>
-            </section>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-1'>
-                {
-                    packages?.length && packages.map((tourPackage, index) => <AssignedTourCard key={tourPackage._id} tourPackage={tourPackage}></AssignedTourCard>)
-                }
+        <div className='bg-gray-100 dark:bg-gray-900'>
+            <div className='pt-28 md:w-[87%] mx-auto w-[90%] pb-28'>
+                <Helmet><title>Trips | Traventure</title></Helmet>
+                <section>
+                    <SectionTitle heading={"Our Tour packages"} subHeading={"Easy To Manage Tour"}></SectionTitle>
+                </section>
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
+                    {
+                        packages?.length && packages.map((tourPackage, index) =>
+                            <AssignedTourCard key={tourPackage._id} tourPackage={tourPackage}></AssignedTourCard>
+                        )
+                    }
+                </div>
             </div>
         </div>
     );
