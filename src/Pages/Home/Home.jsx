@@ -7,19 +7,16 @@ import TourismTravelGuideSection from './TourismTravelGuideSection/TourismTravel
 import TouristStories from './TouristStories/TouristStories';
 
 const Home = () => {
-    // const token = localStorage.getItem('authToken')
-    // console.log(token);
     return (
-        <div>
-            <section className='bg-gray-50 mb-10'>
+        <div className="dark:bg-gray-900 dark:text-gray-200">
+            <section className='bg-gray-50 dark:bg-gray-800 mb-10'>
                 <Banner></Banner>
             </section>
             <section className='mb-14 md:w-[87%] mx-auto w-[90%]'>
                 <TravelPlanTool></TravelPlanTool>
             </section>
-            <section className='bg-purple-400 py-16 mb-14'>
-                <section className='md:w-[87%] mx-auto w-[90%] '>
-
+            <section className='bg-slate-200 dark:bg-slate-800 py-16 mb-14'>
+                <section className='md:w-[87%] mx-auto w-[90%]'>
                     <Overview></Overview>
                 </section>
             </section>

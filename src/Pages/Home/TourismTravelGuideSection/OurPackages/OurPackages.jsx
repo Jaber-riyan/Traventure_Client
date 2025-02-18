@@ -9,7 +9,7 @@ const OurPackages = () => {
 
     if (packagesLoading) return <Loading></Loading>
     return (
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-1'>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
             {
                 packages?.length && packages.map((tourPackage, index) => <AssignedTourCard key={tourPackage._id} tourPackage={tourPackage}></AssignedTourCard>)
             }

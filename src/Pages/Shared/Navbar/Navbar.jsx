@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import './Navbar.css'
+import './Navbar.css';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/UseAuth/UseAuth';
@@ -53,8 +53,8 @@ const Navbar = () => {
                 to="/"
                 className={({ isActive }) =>
                     isActive
-                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                 }
             >
                 Home
@@ -63,8 +63,8 @@ const Navbar = () => {
                 to="/community"
                 className={({ isActive }) =>
                     isActive
-                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                 }
             >
                 Community
@@ -73,8 +73,8 @@ const Navbar = () => {
                 to="/about-us"
                 className={({ isActive }) =>
                     isActive
-                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                 }
             >
                 About Us
@@ -83,31 +83,32 @@ const Navbar = () => {
                 to="/trips"
                 className={({ isActive }) =>
                     isActive
-                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                 }
             >
                 Trips
             </NavLink>
+
             {user?.email ? (
                 <>
                     <Link
                         onClick={logoutHandler}
-                        className="text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                        className="hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                     >
                         Logout
                     </Link>
-                    <button className="flex gap-2 justify-center items-center text-[14px]">
+                    <button className="flex gap-2 justify-center items-center text-[14px] relative">
                         {user && (
                             <div className="dropdown dropdown-bottom dropdown-end">
                                 <button
                                     title={`${user.displayName}`}
                                     tabIndex={0}
                                     role="button"
-                                    className="m-1"
+                                    className="m-1 transition-all hover:scale-105 focus:outline-none"
                                 >
                                     <div className="avatar">
-                                        <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+                                        <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2 shadow-md hover:ring-secondary">
                                             <img
                                                 src={user.photoURL}
                                                 alt="User profile"
@@ -118,20 +119,35 @@ const Navbar = () => {
                                 </button>
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu bg-base-100 dark:bg-gray-800 text-black dark:text-white rounded-box z-[1] w-52 p-2 shadow font-semibold"
+                                    className="dropdown-content menu bg-white dark:bg-gray-900 rounded-lg z-[1] w-56 p-2 shadow-lg font-semibold text-gray-700 dark:text-gray-200"
                                 >
-                                    <li>
-                                        <Link to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}>Dashboard</Link>
+                                    <li className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
+                                        <Link
+                                            to={
+                                                role === "tourist"
+                                                    ? "/dashboard/tourist/profile"
+                                                    : role === "admin"
+                                                        ? "/dashboard/admin/profile"
+                                                        : "/dashboard/tour-guide/profile"
+                                            }
+                                            className="block p-2"
+                                        >
+                                            Dashboard
+                                        </Link>
                                     </li>
-                                    <li>
-                                        <Link>Offer Announcement</Link>
+                                    <li className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
+                                        <Link className="block p-2">Offer Announcement</Link>
                                     </li>
-                                    <li className='cursor-not-allowed pointer-events-none'>
-                                        <h2>User Name: {user?.displayName}</h2>
-                                    </li>
-                                    <li className='cursor-not-allowed pointer-events-none'>
-                                        <h2>User Email: {user?.email}</h2>
-                                    </li>
+                                    {user && (
+                                        <>
+                                            <li className="cursor-not-allowed pointer-events-none text-sm text-gray-500 dark:text-gray-400">
+                                                <h2 className="p-2">👤 {user?.displayName}</h2>
+                                            </li>
+                                            <li className="cursor-not-allowed pointer-events-none text-sm text-gray-500 dark:text-gray-400">
+                                                <h2 className="p-2">✉️ {user?.email}</h2>
+                                            </li>
+                                        </>
+                                    )}
                                 </ul>
                             </div>
                         )}
@@ -143,8 +159,8 @@ const Navbar = () => {
                         to={'/register'}
                         className={({ isActive }) =>
                             isActive
-                                ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                                : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                                ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                                : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                         }
                     >
                         Register
@@ -153,17 +169,19 @@ const Navbar = () => {
                         to={'/login'}
                         className={({ isActive }) =>
                             isActive
-                                ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
-                                : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
+                                ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
+                                : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
                         }
                     >
                         Login
                     </NavLink>
                 </>
             )}
+
+            {/* Theme Toggle Button */}
             <button
                 onClick={toggleTheme}
-                className="p-2 mb-2 text-black dark:text-white font-bold rounded-lg shadow-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-700"
+                className="p-2 mb-2 text-black dark:text-white font-bold rounded-lg shadow-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-700"
             >
                 {theme === "light" ? "🌙 Dark" : "☀️ Light"}
             </button>
@@ -171,18 +189,42 @@ const Navbar = () => {
     );
 
     return (
-        <div className="dark:bg-gray-900 dark:text-white">
+        <div>
             <div className="md:w-[87%] mx-auto">
                 <nav>
-                    <div className="navbar">
-                        <div className="navbar-start">
+                    <div className="navbar text-black dark:text-white">
+                        <div className="navbar-start animate__animated animate__fadeInLeft">
                             <Link to={'/'}>
-                                <h2 className="text-2xl font-bold text-white dark:text-yellow-400">Traventure</h2>
+                                <h2 className="text-2xl font-bold cinzel-font text-white">Traventure</h2>
                             </Link>
                         </div>
                         <div className="navbar-end">
-                            <div className="lg:block hidden">
+                            <div className="lg:block hidden animate__animated animate__fadeInRight">
                                 <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
+                                    {links}
+                                </ul>
+                            </div>
+                            <div className="dropdown">
+                                <div tabIndex="0" role="button" className="btn btn-ghost lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M4 6h16M4 12h8m-8 6h16"
+                                        />
+                                    </svg>
+                                </div>
+                                <ul
+                                    tabIndex="0"
+                                    className="menu menu-sm dropdown-content bg-black/95 dark:bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow right-0"
+                                >
                                     {links}
                                 </ul>
                             </div>
