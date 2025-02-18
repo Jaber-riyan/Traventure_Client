@@ -5,11 +5,15 @@ import Footer from '../../Pages/Shared/Footer/Footer';
 import useAuth from '../../Hooks/UseAuth/UseAuth';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../../Pages/Shared/Loading/Loading';
+import LocomotiveScroll from 'locomotive-scroll';
 
 
 const MainLayout = () => {
     const location = useLocation();
     const { loading } = useAuth();
+
+    const locomotiveScroll = new LocomotiveScroll();
+
     // console.log(location);
     // const noHeaderFooter = location.pathname.includes('login') || location.pathname.includes('register');
 

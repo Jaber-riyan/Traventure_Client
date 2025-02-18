@@ -14,19 +14,19 @@ const Home = () => {
             <section className='bg-gray-50 mb-10'>
                 <Banner></Banner>
             </section>
-            <section className='mb-14 md:w-[80%] mx-auto w-[90%]'>
+            <section className='mb-14 md:w-[87%] mx-auto w-[90%]'>
                 <TravelPlanTool></TravelPlanTool>
             </section>
             <section className='bg-purple-400 py-16 mb-14'>
-                <section className='md:w-[80%] mx-auto w-[90%] '>
+                <section className='md:w-[87%] mx-auto w-[90%] '>
 
                     <Overview></Overview>
                 </section>
             </section>
-            <section className='mb-14 md:w-[80%] mx-auto w-[90%]'>
+            <section className='mb-14 md:w-[87%] mx-auto w-[90%]'>
                 <TourismTravelGuideSection></TourismTravelGuideSection>
             </section>
-            <section className='mb-14 md:w-[80%] mx-auto w-[90%]'>
+            <section className='mb-14 md:w-[86%] mx-auto w-[90%]'>
                 <TouristStories></TouristStories>
             </section>
         </div>

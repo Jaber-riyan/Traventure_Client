@@ -4,11 +4,28 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/UseAuth/UseAuth';
 import UseAdmin from '../../../Hooks/UseAdmin/UseAdmin';
+import UseTheme from '../../../Hooks/UseTheme/UseTheme';
+import { useEffect } from 'react';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser } = useAuth();
     const { role } = UseAdmin();
+    const { theme, setTheme } = UseTheme();
+
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    // Toggle Theme Function
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
 
     const logoutHandler = () => {
         handleLogout()
@@ -36,8 +53,8 @@ const Navbar = () => {
                 to="/"
                 className={({ isActive }) =>
                     isActive
-                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                 }
             >
                 Home
@@ -46,8 +63,8 @@ const Navbar = () => {
                 to="/community"
                 className={({ isActive }) =>
                     isActive
-                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                 }
             >
                 Community
@@ -56,8 +73,8 @@ const Navbar = () => {
                 to="/about-us"
                 className={({ isActive }) =>
                     isActive
-                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                 }
             >
                 About Us
@@ -66,56 +83,17 @@ const Navbar = () => {
                 to="/trips"
                 className={({ isActive }) =>
                     isActive
-                        ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                        : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                        ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                        : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                 }
             >
                 Trips
             </NavLink>
-
-            {/* dashboard routes  */}
-            {/* {user && role === "admin" && (
-                <NavLink
-                    to={'/dashboard/admin/profile'}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )}
-            {user && role === "tourGuide" && (
-                <NavLink
-                    to={'/dashboard/tour-guide/profile'}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )}
-            {user && role === "tourist" && (
-                <NavLink
-                    to={'/dashboard/tourist/profile'}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                            : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )} */}
-
             {user?.email ? (
                 <>
                     <Link
                         onClick={logoutHandler}
-                        className="hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                        className="text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                     >
                         Logout
                     </Link>
@@ -138,10 +116,9 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                 </button>
-                                {/* Dropdown Content */}
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow font-semibold"
+                                    className="dropdown-content menu bg-base-100 dark:bg-gray-800 text-black dark:text-white rounded-box z-[1] w-52 p-2 shadow font-semibold"
                                 >
                                     <li>
                                         <Link to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}>Dashboard</Link>
@@ -149,21 +126,16 @@ const Navbar = () => {
                                     <li>
                                         <Link>Offer Announcement</Link>
                                     </li>
-                                    {
-                                        user && <>
-                                            <li className='cursor-not-allowed pointer-events-none'>
-                                                <h2>User Name: {user?.displayName}</h2>
-                                            </li>
-                                            <li className='cursor-not-allowed pointer-events-none'>
-                                                <h2>User Email: {user?.email}</h2>
-                                            </li>
-                                        </>
-                                    }
+                                    <li className='cursor-not-allowed pointer-events-none'>
+                                        <h2>User Name: {user?.displayName}</h2>
+                                    </li>
+                                    <li className='cursor-not-allowed pointer-events-none'>
+                                        <h2>User Email: {user?.email}</h2>
+                                    </li>
                                 </ul>
                             </div>
                         )}
                     </button>
-
                 </>
             ) : (
                 <>
@@ -171,8 +143,8 @@ const Navbar = () => {
                         to={'/register'}
                         className={({ isActive }) =>
                             isActive
-                                ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                                : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                                ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                                : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                         }
                     >
                         Register
@@ -181,105 +153,45 @@ const Navbar = () => {
                         to={'/login'}
                         className={({ isActive }) =>
                             isActive
-                                ? "hover:text-white/70 text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase"
-                                : "hover:text-white/70 text-white font-[700] text-[14px] cursor-pointer uppercase"
+                                ? "text-[#0040fffd] font-[700] text-[14px] cursor-pointer uppercase dark:text-yellow-400"
+                                : "text-white font-[700] text-[14px] cursor-pointer uppercase hover:text-gray-300 dark:hover:text-gray-400"
                         }
                     >
                         Login
                     </NavLink>
-                    <div className="dropdown dropdown-bottom dropdown-end">
-                        <button
-                            tabIndex={0}
-                            role="button"
-                            className="m-1"
-                        >
-                            <div className="avatar">
-                                <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-                                    <img
-                                        src="https://i.ibb.co.com/nsJZRMr/profile.png"
-                                        alt="User profile"
-                                        referrerPolicy="no-referrer"
-                                    />
-                                </div>
-                            </div>
-                        </button>
-                        {/* Dropdown Content */}
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                        >
-                            <li>
-                                <Link>Dashboard</Link>
-                            </li>
-                            <li>
-                                <Link>Offer Announcement</Link>
-                            </li>
-                            {
-                                user && <>
-                                    <li className='cursor-not-allowed pointer-events-none'>
-                                        <h2>User Name: {user?.displayName}</h2>
-                                    </li>
-                                    <li className='cursor-not-allowed pointer-events-none'>
-                                        <h2>User Email: {user?.email}</h2>
-                                    </li>
-                                </>
-                            }
-                        </ul>
-                    </div>
                 </>
             )}
+            <button
+                onClick={toggleTheme}
+                className="p-2 mb-2 text-black dark:text-white font-bold rounded-lg shadow-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-700"
+            >
+                {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+            </button>
         </>
     );
 
     return (
-        <>
-            <div>
-                <div className="md:w-[80%] mx-auto">
-                    <nav>
-                        <div className="navbar text-black">
-                            <div className="navbar-start animate__animated animate__fadeInLeft">
-                                <Link to={'/'}>
-                                    <h2 className="text-2xl font-bold cinzel-font text-white">Traventure</h2>
-                                </Link>
-                            </div>
-                            <div className="navbar-end">
-                                <div className="lg:block hidden animate__animated animate__fadeInRight">
-                                    <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
-                                        {links}
-                                    </ul>
-                                </div>
-                                <div className="dropdown">
-                                    <div tabIndex="0" role="button" className="btn btn-ghost lg:hidden">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-5 w-5"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 6h16M4 12h8m-8 6h16"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <ul
-                                        tabIndex="0"
-                                        className="menu menu-sm dropdown-content bg-black/95 rounded-box z-[1] mt-3 w-52 p-2 shadow right-0"
-                                    >
-                                        {links}
-                                    </ul>
-                                </div>
+        <div className="dark:bg-gray-900 dark:text-white">
+            <div className="md:w-[87%] mx-auto">
+                <nav>
+                    <div className="navbar">
+                        <div className="navbar-start">
+                            <Link to={'/'}>
+                                <h2 className="text-2xl font-bold text-white dark:text-yellow-400">Traventure</h2>
+                            </Link>
+                        </div>
+                        <div className="navbar-end">
+                            <div className="lg:block hidden">
+                                <ul className="menu-horizontal p-2 space-x-3 items-center justify-center">
+                                    {links}
+                                </ul>
                             </div>
                         </div>
-                    </nav>
-                </div>
+                    </div>
+                </nav>
             </div>
-        </>
+        </div>
     );
 };
-
 
 export default Navbar;
