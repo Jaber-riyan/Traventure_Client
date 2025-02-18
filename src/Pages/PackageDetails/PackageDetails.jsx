@@ -24,6 +24,7 @@ import useAuth from '../../Hooks/UseAuth/UseAuth';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecureAndNormal/UseAxiosSecure';
+import UseAdmin from '../../Hooks/UseAdmin/UseAdmin';
 
 const PackageDetails = () => {
     const params = useParams();
@@ -32,6 +33,7 @@ const PackageDetails = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { tourGuides, tourGuidesLoading, tourGuidesRefetch } = UseTourGuide();
     const { user, handleLogout, setUser } = useAuth();
+    const { role } = UseAdmin();
     const navigate = useNavigate();
 
     const { data: tourPackage = {}, refetch: packageRefetch, isLoading: packageLoading } = useQuery({
@@ -114,9 +116,14 @@ const PackageDetails = () => {
                     </p>
                     <div className="flex items-center justify-between mt-4">
                         <span className="text-xl font-bold text-orange-500"><span className='font-bold'>Price: </span> ৳ {price}</span>
-                        <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                        <button
+                            disabled={role === "admin"}
+                            onClick={() => setIsModalOpen(true)}
+                            className={`bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition ${role === "admin" ? "opacity-50 cursor-not-allowed" : ""}`}
+                        >
                             Book Now
                         </button>
+
                     </div>
                 </div>
 

@@ -19,8 +19,10 @@ const Login = () => {
     const location = useLocation();
     const captchaRef = useRef(null);
     const [captchaMatch, setCaptchaMatch] = useState(false);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
     const axiosInstanceNormal = UseAxiosNormal();
+    const emailRef = useRef(null)
+    const passwordRef = useRef(null)
 
 
     useEffect(() => {
@@ -86,8 +88,6 @@ const Login = () => {
                     })
                     navigate(location?.state || '/');
                 }
-
-
             })
             .catch(error => {
                 const errorCode = error.code.split("auth/")[1];
@@ -103,6 +103,34 @@ const Login = () => {
 
     }
 
+    const fillValidCredentials = (type) => {
+        if (type === "admin") {
+            const email = import.meta.env.VITE_ADMIN_EMAIL
+            const password = import.meta.env.VITE_ADMIN_PASSWORD
+
+            setValue("email", email);
+            setValue("password", password);
+            setCaptchaMatch(true)
+        }
+        else if (type === "tourGuide") {
+            const email = import.meta.env.VITE_GUIDE_EMAIL
+            const password = import.meta.env.VITE_GUIDE_PASSWORD
+
+            setValue("email", email);
+            setValue("password", password);
+            setCaptchaMatch(true)
+        }
+        else {
+            const email = import.meta.env.VITE_TOURIST_EMAIL
+            const password = import.meta.env.VITE_TOURIST_PASSWORD
+
+            setValue("email", email);
+            setValue("password", password);
+            setCaptchaMatch(true)
+        }
+    }
+
+
     return (
         <div className="bg-[url('https://i.ibb.co.com/C5YrLhL/authentication.png')] md:p-20 p-10">
             <div className="flex lg:flex-row flex-col-reverse gap-10 items-center rounded-lg justify-center p-8 shadow-2xl">
@@ -114,6 +142,25 @@ const Login = () => {
                 <form onSubmit={handleSubmit(handleSubmitLogin)} className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__bounceInRight">
                     <h2 className="text-3xl font-bold text-center text-[#000]">Login</h2>
 
+                    {/* auto credential full fill buttons  */}
+                    <div className='border-t-2 border-zinc-300 pt-3 pb-3 border-b-2'>
+                        <h2 className='text-2xl font-semibold text-zinc-600'>Users Credentials</h2>
+                        <div className='flex gap-2'>
+                            <button onClick={() => fillValidCredentials("tourist")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#1D4ED8] hover:bg-[#1e3a8a]`}>
+                                Tourist
+                            </button>
+
+                            <button onClick={() => fillValidCredentials("tourGuide")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#10B981] hover:bg-[#059669]`}>
+                                Tour Guide
+                            </button>
+
+                            <button onClick={() => fillValidCredentials("admin")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#F59E0B] hover:bg-[#d97706]`}>
+                                Admin
+                            </button>
+
+                        </div>
+                    </div>
+
                     <div className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-[#000]" htmlFor="email">
@@ -123,6 +170,7 @@ const Login = () => {
                                 <FiMail className="w-5 h-5 text-black" />
                                 <input
                                     type="email"
+                                    ref={emailRef}
                                     id="email"
                                     name='email'
                                     {...register("email", { required: true })}
@@ -142,6 +190,7 @@ const Login = () => {
                                 <input
                                     type="password"
                                     id="password"
+                                    ref={passwordRef}
                                     name='password'
                                     {...register("password", { required: true })}
                                     placeholder="Enter your password"

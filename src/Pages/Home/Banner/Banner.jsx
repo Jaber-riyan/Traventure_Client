@@ -4,6 +4,7 @@ import { GiWorld } from "react-icons/gi";
 import { BsBicycle } from "react-icons/bs";
 import React from "react";
 import "animate.css";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
@@ -17,20 +18,26 @@ const Banner = () => {
                 }}
             >
                 <div
-                    className="w-full mx-auto px-4 py-12 flex flex-col lg:flex-row items-center lg:items-start md:w-[80%]"
+                    className="w-full mx-auto px-4 py-12 flex flex-col lg:flex-row items-center lg:items-start md:w-[87%]"
                 >
                     {/* Left Section */}
-                    <div className="lg:w-1/2 text-center lg:text-left animate__animated animate__fadeInLeft flex flex-col">
+                    <div className="lg:w-1/2 text-center lg:text-left flex flex-col">
                         <h1 className="text-4xl md:text-4xl lg:text-5xl cinzel-font font-bold text-gray-800 dark:text-gray-200 leading-snug">
                             Plan your next big <br /> trip overseas.
                         </h1>
                         <div className="mt-6 flex justify-center lg:justify-start gap-4">
-                            <button className="px-6 py-3 text-white bg-[#5b21b6] hover:bg-[#4c1d95] rounded-lg shadow-md text-sm md:text-base font-semibold">
+                            <Link
+                                to="/trips"
+                                className="px-6 py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 rounded-lg shadow-lg text-sm md:text-base font-semibold transition-colors"
+                            >
                                 Begin Plans
-                            </button>
-                            <button className="px-6 py-3 text-[#5b21b6] dark:text-[#c4a7e7] bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-[#5b21b6] dark:border-gray-600 rounded-lg shadow-md text-sm md:text-base font-semibold">
-                                Review Plans
-                            </button>
+                            </Link>
+                            <Link
+                                to="/community"
+                                className="px-6 py-3 text-purple-600 dark:text-[#c4a7e7] bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-gray-700 border border-purple-600 dark:border-gray-600 rounded-lg shadow-lg text-sm md:text-base font-semibold transition-colors"
+                            >
+                                Community
+                            </Link>
                         </div>
                     </div>
                 </div>

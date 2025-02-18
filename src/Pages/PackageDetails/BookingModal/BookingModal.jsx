@@ -12,11 +12,11 @@ const BookingModal = ({ isOpen, onClose, packageDetails, user, guides, onSubmit 
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 animate__animated animate__fadeIn">
-            <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg md:w-2/3">
+            <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg md:w-2/3">
                 {/* Modal Header */}
                 <div className="flex justify-between items-center border-b pb-2">
-                    <h2 className="text-lg md:text-xl font-bold text-gray-700">Book Your Tour</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-red-500">
+                    <h2 className="text-lg md:text-xl font-bold text-gray-700 dark:text-gray-100">Book Your Tour</h2>
+                    <button onClick={onClose} className="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500">
                         <FaTimes size={18} />
                     </button>
                 </div>
@@ -31,76 +31,76 @@ const BookingModal = ({ isOpen, onClose, packageDetails, user, guides, onSubmit 
                 >
                     {/* Package Name */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Package Name</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Package Name</label>
                         <input
                             type="text"
                             value={packageDetails?.name || ""}
                             readOnly
-                            className="w-full p-1.5 border rounded-md bg-gray-100 text-sm"
+                            className="w-full p-1.5 border rounded-md bg-gray-100 dark:bg-gray-700 text-sm dark:text-gray-100"
                         />
                     </div>
 
                     {/* Tourist Name */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Tourist Name</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Tourist Name</label>
                         <input
                             type="text"
                             value={user?.displayName || ""}
                             readOnly
-                            className="w-full p-1.5 border rounded-md bg-gray-100 text-sm"
+                            className="w-full p-1.5 border rounded-md bg-gray-100 dark:bg-gray-700 text-sm dark:text-gray-100"
                         />
                     </div>
 
                     {/* Tourist Email */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Tourist Email</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Tourist Email</label>
                         <input
                             type="text"
                             value={user?.email || ""}
                             readOnly
-                            className="w-full p-1.5 border rounded-md bg-gray-100 text-sm"
+                            className="w-full p-1.5 border rounded-md bg-gray-100 dark:bg-gray-700 text-sm dark:text-gray-100"
                         />
                     </div>
 
                     {/* Tourist Image */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Tourist Image</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Tourist Image</label>
                         <input
                             type="text"
                             value={user?.photoURL || ""}
                             readOnly
-                            className="w-full p-1.5 border rounded-md bg-gray-100 text-sm"
+                            className="w-full p-1.5 border rounded-md bg-gray-100 dark:bg-gray-700 text-sm dark:text-gray-100"
                         />
                     </div>
 
                     {/* Price */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Price</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Price</label>
                         <input
                             type="text"
                             value={`৳ ${packageDetails?.price || 0}`}
                             readOnly
-                            className="w-full p-1.5 border rounded-md bg-gray-100 text-sm"
+                            className="w-full p-1.5 border rounded-md bg-gray-100 dark:bg-gray-700 text-sm dark:text-gray-100"
                         />
                     </div>
 
                     {/* Tour Date */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Tour Date</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Tour Date</label>
                         <DatePicker
                             selected={tourDate}
                             onChange={(date) => setTourDate(date)}
-                            className="w-full p-1.5 border rounded-md text-sm"
+                            className="w-full p-1.5 border rounded-md text-sm dark:bg-gray-700 dark:text-gray-100"
                         />
                     </div>
 
                     {/* Tour Guide Selection */}
                     <div>
-                        <label className="font-medium text-gray-600 text-sm">Tour Guide</label>
+                        <label className="font-medium text-gray-600 dark:text-gray-200 text-sm">Tour Guide</label>
                         <select
                             value={selectedGuide}
                             onChange={(e) => setSelectedGuide(e.target.value)}
-                            className="w-full p-1.5 border rounded-md text-sm"
+                            className="w-full p-1.5 border rounded-md text-sm dark:bg-gray-700 dark:text-gray-100"
                             required
                         >
                             <option value="">Select a Guide</option>
@@ -115,7 +115,7 @@ const BookingModal = ({ isOpen, onClose, packageDetails, user, guides, onSubmit 
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition text-sm"
+                        className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition text-sm dark:bg-orange-600 dark:hover:bg-orange-500"
                     >
                         Confirm Booking
                     </button>
