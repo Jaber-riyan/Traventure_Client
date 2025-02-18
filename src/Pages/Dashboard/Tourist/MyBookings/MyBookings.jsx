@@ -5,7 +5,6 @@ import UseAxiosSecure from '../../../../Hooks/UseAxiosSecureAndNormal/UseAxiosSe
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../../Hooks/UseAuth/UseAuth';
 import Loading from '../../../Shared/Loading/Loading';
-import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 
@@ -29,7 +28,6 @@ const MyBookings = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const { data } = await axiosInstanceSecure.delete(`/booking/${id}`)
-                console.log(data);
                 if (data.status) {
                     Swal.fire({
                         title: "Cancel The Booking",
@@ -44,9 +42,6 @@ const MyBookings = () => {
                     })
                 }
             }
-            // else if (result.isDenied) {
-            //     Swal.fire("Work is not perform", "", "info");
-            // }
         });
     }
 
@@ -58,15 +53,15 @@ const MyBookings = () => {
             <section className='mb-5'>
                 <SectionTitle heading={"MANAGE ALL Bookings"} subHeading={"How Many Bookings"}></SectionTitle>
             </section>
-            <div className='px-12 py-10 bg-white'>
+            <div className='px-12 py-10 bg-white dark:bg-gray-800 dark:text-white'>
                 <div className='cinzel-font flex justify-between mb-10 items-center'>
-                    <h2 className='text-[#151515] font-bold text-2xl'>Total Bookings: {bookings.length}</h2>
+                    <h2 className='text-[#151515] font-bold text-2xl dark:text-white'>Total Bookings: {bookings.length}</h2>
                 </div>
                 <div className="animate__animated animate__fadeInUp">
                     <div className="overflow-y-auto max-h-64 custom-scrollbar">
                         <table className="min-w-full table-fixed">
-                            <thead className='sticky top-0'>
-                                <tr className="bg-[#D1A054] text-white">
+                            <thead className='sticky top-0 bg-[#D1A054] dark:bg-[#D1A054] text-white'>
+                                <tr>
                                     <th className="py-2 px-4 text-left tracking-[2px] rounded-tl-2xl">NO</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">PACKAGE</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">GUIDE NAME</th>
@@ -78,19 +73,16 @@ const MyBookings = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {
                                     bookings?.length > 0 ? bookings?.map((booking, index) => {
-                                        return <BookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} index={index}></BookingsCard>
-
+                                        return <BookingsCard key={booking?._id} booking={booking} handleDelete={handleDelete} index={index}></BookingsCard>
                                     }) :
-
                                         <tr className='text-3xl font-bold text-center text-red-600'>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><h2 className=' p-6'>No Booking</h2></td>
+                                            <td><h2 className='p-6'>No Booking</h2></td>
                                         </tr>
                                 }
                             </tbody>

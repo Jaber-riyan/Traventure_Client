@@ -13,15 +13,6 @@ const Navbar = () => {
     const { role } = UseAdmin();
     const { theme, setTheme } = UseTheme();
 
-    useEffect(() => {
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-        localStorage.setItem("theme", theme);
-    }, [theme]);
-
     // Toggle Theme Function
     const toggleTheme = () => {
         setTheme(theme === "light" ? "dark" : "light");

@@ -11,18 +11,17 @@ import UseAdmin from "../../Hooks/UseAdmin/UseAdmin";
 import { Helmet } from "react-helmet-async";
 import { IoMdPersonAdd } from "react-icons/io";
 import Loading from "../Shared/Loading/Loading";
-
-
-
+import UseTheme from "../../Hooks/UseTheme/UseTheme";
+import DashboardNavbar from "../Shared/DashboardNavbar/DashboardNavbar";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const { user, handleLogout, setUser, loading } = useAuth();
     const { role, roleLoading } = UseAdmin();
     const location = useLocation();
+    const { theme, setTheme } = UseTheme();
+
     // console.log(location.pathname);
-
-
 
     const logoutHandler = () => {
         handleLogout()
@@ -57,20 +56,29 @@ const Dashboard = () => {
         document.getElementById("my-drawer").checked = false;
     };
 
+    // Toggle Theme Function
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
+
     if (loading || roleLoading) return <Loading></Loading>;
 
     return (
-        <div className="bg-blue-100">
+        <div className={`bg-blue-100 dark:bg-gray-900`}>
             <Helmet>
                 <title>Dashboard | Traventure</title>
             </Helmet>
+            <nav>
+                <DashboardNavbar></DashboardNavbar>
+            </nav>
             <div className="drawer">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex">
                     {/* Page Content */}
                     <label
+                    title="Menu"
                         htmlFor="my-drawer"
-                        className="drawer-button w-fit flex flex-col justify-center bg-black/40 hover:bg-black/50 cursor-pointer p-1 hover:text-white"
+                        className="drawer-button w-fit flex flex-col justify-center bg-black/20 dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-black/50 cursor-pointer p-1 hover:text-white"
                     >
                         <div>
                             <FaChevronCircleRight size={20} />
@@ -82,11 +90,11 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-200 text-base-content h-screen">
+                    <ul className="menu p-4 w-80 bg-base-200 text-base-content dark:bg-gray-900 dark:text-white h-screen">
                         <div className="mb-10">
                             <Link
                                 to={role === "tourist" ? "/dashboard/tourist/profile" : role === "admin" ? "/dashboard/admin/profile" : "/dashboard/tour-guide/profile"}
-                                className="text-2xl font-bold cinzel-font tracking-[4px]"
+                                className="text-2xl font-bold cinzel-font tracking-[4px] dark:text-white"
                                 onClick={closeDrawer}
                             >
                                 Traventure
@@ -97,7 +105,7 @@ const Dashboard = () => {
                             <>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/admin/profile"
                                         onClick={closeDrawer}
                                     >
@@ -107,7 +115,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/admin/add-package"
                                         onClick={closeDrawer}
                                     >
@@ -117,7 +125,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/admin/manage-users"
                                         onClick={closeDrawer}
                                     >
@@ -127,7 +135,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/admin/manage-candidates"
                                         onClick={closeDrawer}
                                     >
@@ -137,7 +145,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/admin/assigned-tour"
                                         onClick={closeDrawer}
                                     >
@@ -147,7 +155,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
@@ -157,7 +165,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
@@ -168,12 +176,12 @@ const Dashboard = () => {
                             </>
                         )}
 
-                        {/* tour guide dashboard options section  */}
+                        {/* tour guide dashboard options section */}
                         {role === "tourGuide" && (
                             <>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/tour-guide/profile"
                                         onClick={closeDrawer}
                                     >
@@ -183,7 +191,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/tour-guide/assigned-tour"
                                         onClick={closeDrawer}
                                     >
@@ -193,7 +201,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
@@ -203,7 +211,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
@@ -214,12 +222,12 @@ const Dashboard = () => {
                             </>
                         )}
 
-                        {/* tourist dashboard options section  */}
+                        {/* tourist dashboard options section */}
                         {role === "tourist" && (
                             <>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/tourist/profile"
                                         onClick={closeDrawer}
                                     >
@@ -229,7 +237,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/tourist/bookings"
                                         onClick={closeDrawer}
                                     >
@@ -239,7 +247,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/add-stories"
                                         onClick={closeDrawer}
                                     >
@@ -249,7 +257,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/manage-stories"
                                         onClick={closeDrawer}
                                     >
@@ -259,7 +267,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/tourist/join-guide"
                                         onClick={closeDrawer}
                                     >
@@ -269,7 +277,7 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        className="flex items-center gap-3 font-bold"
+                                        className="flex items-center gap-3 font-bold dark:text-white"
                                         to="/dashboard/payment-history"
                                         onClick={closeDrawer}
                                     >
@@ -280,11 +288,11 @@ const Dashboard = () => {
                             </>
                         )}
                         {/* Divider */}
-                        <div className="divider"></div>
+                        <div className="divider dark:border-gray-600"></div>
                         {/* General Links */}
                         <li>
                             <NavLink
-                                className="flex items-center gap-3 font-bold"
+                                className="flex items-center gap-3 font-bold dark:text-white"
                                 to="/"
                                 onClick={closeDrawer}
                             >
@@ -294,18 +302,15 @@ const Dashboard = () => {
                         </li>
                         <li>
                             <button
-                                onClick={() => {
-                                    closeDrawer();
-                                    logoutHandler();
-                                }}
-                                className="flex items-center gap-3 font-bold"
+                                onClick={toggleTheme}
+                                className="p-2 mb-2 text-black dark:text-white font-bold rounded-lg shadow-md bg-gray-200 dark:bg-gray-500 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-700"
                             >
-                                <MdLogout size={20} />
-                                Logout
+                                {theme === "light" ? "🌙 Dark" : "☀️ Light"}
                             </button>
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
     );
