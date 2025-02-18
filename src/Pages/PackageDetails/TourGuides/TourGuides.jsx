@@ -8,7 +8,7 @@ const TourGuides = () => {
     // console.log(tourGuides);
     if (tourGuidesLoading) return <Loading></Loading>
     return (
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
+        <div className='flex flex-wrap gap-5'>
             {
                 tourGuides && tourGuides.map((guide) => <TourGuideCard key={guide?._id} guide={guide}></TourGuideCard>)
             }

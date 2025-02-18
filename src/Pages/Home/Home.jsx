@@ -23,9 +23,12 @@ const Home = () => {
             <section className='mb-14 md:w-[87%] mx-auto w-[90%]'>
                 <TourismTravelGuideSection></TourismTravelGuideSection>
             </section>
-            <section className='mb-14 md:w-[86%] mx-auto w-[90%]'>
-                <TouristStories></TouristStories>
+            <section className='dark:bg-zinc-900 bg-gray-100 pb-14 '>
+                <section className='md:w-[86%] mx-auto w-[90%] '>
+                    <TouristStories></TouristStories>
+                </section>
             </section>
+
         </div>
     );
 };

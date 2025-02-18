@@ -1,37 +1,40 @@
 import React from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import { useLocation, useParams } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 const StoryCard = ({ story }) => {
-    const { description, email, images, title } = story
-    console.log(story);
-    const location = useLocation()
-    console.log(location.pathname);
+    const { description, email, images, title } = story;
+    const location = useLocation();
 
     return (
-        <div className='bg-gray-400 px-2 py-2 rounded-xl'>
-            <Carousel className="rounded-lg" autoPlay={true} interval={2000} infiniteLoop={true}>
+        <div className="bg-white dark:bg-zinc-900 shadow-md dark:shadow-gray-700 rounded-xl p-4 transition-all duration-300 hover:scale-105">
+            {/* Image Carousel */}
+            <Carousel 
+                className="rounded-lg overflow-hidden" 
+                autoPlay={true} 
+                interval={2500} 
+                infiniteLoop={true} 
+                showThumbs={false}
+                showStatus={false}
+            >
                 {
-                    images && images.map((image, index) => <div className='h-80' key={index}>
-                        <img className='rounded-xl' src={image} alt="Image 1" />
-                        <p className='legend btn font-bold'>{title}</p>
-                        <p className='text-white font-bold'>{description}</p>
-                    </div>)
+                    images && images.map((image, index) => (
+                        <div key={index} className="relative h-64">
+                            <img className="w-full h-64 object-cover rounded-xl" src={image} alt={`Story Image ${index + 1}`} />
+                            <p className="absolute bottom-2 left-2 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-semibold">{title}</p>
+                        </div>
+                    ))
                 }
             </Carousel>
-            {
-                location.pathname !== "/community" &&
-                <>
-                    <button className='btn btn-error text-white mr-2'>
-                        Delete
-                    </button>
-                    <button className='btn btn-primary text-white'>
-                        Share
-                    </button>
-                </>
-            }
+
+            {/* Story Details */}
+            <div className="mt-4">
+                <h3 className="text-lg font-bold dark:text-white">{title}</h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                    {description.length > 100 ? `${description.slice(0, 100)}...` : description}
+                </p>
+            </div>
         </div>
     );
 };

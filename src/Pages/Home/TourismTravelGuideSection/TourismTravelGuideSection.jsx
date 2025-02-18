@@ -8,7 +8,7 @@ const TourismTravelGuideSection = () => {
     return (
         <div>
             <div>
-                <h2 className='text-4xl font-bold cinzel-font text-zinc-400 text-center mb-6 underline'>Tourism and Travel Guide</h2>
+                <h2 className='text-4xl font-bold cinzel-font dark:text-zinc-400 text-zinc-700 text-center mb-6 underline'>Packages and Travel Guide</h2>
             </div>
             <section>
                 <Tabs>
