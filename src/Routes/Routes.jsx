@@ -30,6 +30,7 @@ import Community from '../Pages/Community/Community';
 import GuideBookings from '../Pages/Dashboard/TourGuide/GuideBookings/GuideBookings';
 import Payment from '../Pages/Payment/Payment';
 import PaymentHistory from '../Pages/PaymentHistory/PaymentHistory';
+import AboutUs from '../Pages/AboutUs/AboutUs';
 
 const router = createBrowserRouter([
     {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
             {
                 path: 'community',
                 element: <Community></Community>
+            },
+            {
+                path: 'about-us',
+                element: <AboutUs></AboutUs>
             }
         ]
     },
