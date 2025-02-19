@@ -22,10 +22,10 @@ const GuideBookings = () => {
 
     const handleDelete = async (id) => {
         Swal.fire({
-            title: "Do you want to delete Booking?",
+            title: "Do you want to reject Booking?",
             showCancelButton: true,
             confirmButtonText: "Yes",
-            denyButtonText: `No`
+            denyButtonText: "No"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const { data } = await axiosInstanceSecure.delete(`/booking/${id}`)
@@ -44,18 +44,15 @@ const GuideBookings = () => {
                     })
                 }
             }
-            // else if (result.isDenied) {
-            //     Swal.fire("Work is not perform", "", "info");
-            // }
         });
     }
 
     const handleAcceptBooking = (id) => {
         Swal.fire({
-            title: "Do you want to delete Booking?",
+            title: "Do you want to accept Booking?",
             showCancelButton: true,
             confirmButtonText: "Yes",
-            denyButtonText: `No`
+            denyButtonText: "No"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const { data } = await axiosInstanceSecure.get(`/booking/accepted/${id}`)
@@ -74,9 +71,6 @@ const GuideBookings = () => {
                     })
                 }
             }
-            // else if (result.isDenied) {
-            //     Swal.fire("Work is not perform", "", "info");
-            // }
         });
     }
 
@@ -85,18 +79,21 @@ const GuideBookings = () => {
     return (
         <div className='mb-32 mt-10'>
             <Helmet><title>Guide Bookings | Traventure</title></Helmet>
-            <section className='mb-5'>
-                <SectionTitle heading={"MANAGE ALL Bookings"} subHeading={"How Many Bookings"}></SectionTitle>
-            </section>
-            <div className='px-12 py-10 bg-white'>
+            <div className="text-center py-8 mb-12">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                    Manage all <span className="text-orange-600 capitalize"> Bookings</span>
+                </h1>
+                <div className="w-20 h-1 bg-orange-600 mx-auto mt-2 rounded"></div>
+            </div>
+            <div className='px-12 py-10 bg-white dark:bg-[#1f2937]'>
                 <div className='cinzel-font flex justify-between mb-10 items-center'>
-                    <h2 className='text-[#151515] font-bold text-2xl'>Total Bookings: {bookings.length}</h2>
+                    <h2 className='text-[#151515] dark:text-white font-bold text-2xl'>Total Bookings: {bookings.length}</h2>
                 </div>
                 <div className="animate__animated animate__fadeInUp">
                     <div className="overflow-y-auto max-h-64 custom-scrollbar">
                         <table className="min-w-full table-fixed">
                             <thead className='sticky top-0'>
-                                <tr className="bg-[#D1A054] text-white">
+                                <tr className="bg-[#D1A054] dark:bg-[#4a5568] text-white">
                                     <th className="py-2 px-4 text-left tracking-[2px] rounded-tl-2xl">NO</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">PACKAGE</th>
                                     <th className="py-2 px-4 text-left tracking-[2px]">TOURIST NAME</th>
@@ -108,13 +105,10 @@ const GuideBookings = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {
                                     bookings?.length > 0 ? bookings?.map((booking, index) => {
                                         return <GuideBookingsCard key={user?._id} booking={booking} handleDelete={handleDelete} handleAcceptBooking={handleAcceptBooking} index={index}></GuideBookingsCard>
-
                                     }) :
-
                                         <tr className='text-3xl font-bold text-center text-red-600'>
                                             <td></td>
                                             <td></td>

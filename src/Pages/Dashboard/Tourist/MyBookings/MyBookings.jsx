@@ -50,9 +50,12 @@ const MyBookings = () => {
     return (
         <div className='mb-32 mt-10'>
             <Helmet><title>Bookings | Traventure</title></Helmet>
-            <section className='mb-5'>
-                <SectionTitle heading={"MANAGE ALL Bookings"} subHeading={"How Many Bookings"}></SectionTitle>
-            </section>
+            <div className="text-center py-8 mb-12">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                    Manage All <span className="text-orange-600 capitalize"> Bookings </span>
+                </h1>
+                <div className="w-20 h-1 bg-orange-600 mx-auto mt-2 rounded"></div>
+            </div>
             <div className='px-12 py-10 bg-white dark:bg-gray-800 dark:text-white'>
                 <div className='cinzel-font flex justify-between mb-10 items-center'>
                     <h2 className='text-[#151515] font-bold text-2xl dark:text-white'>Total Bookings: {bookings.length}</h2>

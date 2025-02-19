@@ -78,9 +78,12 @@ const AddPackage = () => {
     return (
         <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-white">
             <Helmet><title>Add Package | Traventure</title></Helmet>
-            <section className="mb-5">
-                <SectionTitle heading={"Add Tour Package"} subHeading={"What's New?"}></SectionTitle>
-            </section>
+            <div className="text-center py-8">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                    Add Tour <span className="text-orange-600 capitalize"> Package </span>
+                </h1>
+                <div className="w-20 h-1 bg-orange-600 mx-auto mt-2 rounded"></div>
+            </div>
             <div className="p-8 bg-white dark:bg-gray-800 dark:border-gray-600 rounded-lg shadow-lg">
                 <form onSubmit={handleSubmit(handleSubmitAddPackage)} className="space-y-6">
                     {/* Package Name */}

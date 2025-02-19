@@ -80,43 +80,48 @@ const AddStories = () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 mb-10">
+        <div className="max-w-lg mx-auto p-6 bg-white shadow-[0_0_15px_#fff] rounded-lg mt-10 mb-10 dark:bg-gray-900 dark:text-white">
             <Helmet><title>Add Story | Traventure</title></Helmet>
-            <h2 className="text-xl font-bold text-center text-gray-700 mb-4">ADD YOUR STORY</h2>
-
+            <div className="text-center py-8">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                    Add Your <span className="text-orange-600 capitalize">Story </span>
+                </h1>
+                <div className="w-20 h-1 bg-orange-600 mx-auto mt-2 rounded"></div>
+            </div>
+    
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Title Input */}
                 <div>
-                    <label className="block font-medium text-gray-600">Title*</label>
+                    <label className="block font-medium text-gray-600 dark:text-gray-300">Title*</label>
                     <input
                         type="text"
                         {...register("title", { required: "Title is required" })}
                         placeholder="Enter story title"
-                        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                     />
                     {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
                 </div>
-
+    
                 {/* Description Input */}
                 <div>
-                    <label className="block font-medium text-gray-600">Description* (Max 100 characters)</label>
+                    <label className="block font-medium text-gray-600 dark:text-gray-300">Description* (Max 100 characters)</label>
                     <textarea
                         {...register("description", { required: "Description is required", maxLength: 100 })}
                         placeholder="Write your story description here"
-                        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                         rows="3"
                         onChange={(e) => setCharCount(e.target.value.length)}
                     ></textarea>
-                    <p className={`text-sm mt-1 ${charCount > 100 ? "text-red-500" : "text-gray-500"}`}>{charCount}/100 characters</p>
+                    <p className={`text-sm mt-1 ${charCount > 100 ? "text-red-500" : "text-gray-500 dark:text-gray-400"}`}>{charCount}/100 characters</p>
                     {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
                 </div>
-
+    
                 {/* File Upload */}
                 <div>
-                    <label className="block font-medium text-gray-600">Upload Images</label>
-                    <label className="border-2 border-dashed p-4 rounded-lg cursor-pointer flex flex-col items-center justify-center hover:bg-gray-100">
+                    <label className="block font-medium text-gray-600 dark:text-gray-300">Upload Images</label>
+                    <label className="border-2 border-dashed p-4 rounded-lg cursor-pointer flex flex-col items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800">
                         <FiUpload className="text-3xl text-blue-500" />
-                        <span className="mt-2 text-gray-500 text-sm">Click to Upload Photos (Multiple allowed)</span>
+                        <span className="mt-2 text-gray-500 text-sm dark:text-gray-400">Click to Upload Photos (Multiple allowed)</span>
                         <input type="file" multiple {...register("images")} className="hidden" onChange={handleFileChange} />
                     </label>
                     {selectedImages.length > 0 && (
@@ -127,17 +132,18 @@ const AddStories = () => {
                         </div>
                     )}
                 </div>
-
+    
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-all"
+                    className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-all dark:bg-orange-600 dark:hover:bg-orange-700"
                 >
                     Add Story
                 </button>
             </form>
         </div>
     );
+    
 };
 
 export default AddStories;
