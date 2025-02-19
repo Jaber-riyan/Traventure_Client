@@ -68,7 +68,7 @@ const Dashboard = () => {
             <Helmet>
                 <title>Dashboard | Traventure</title>
             </Helmet>
-            <nav>
+            <nav className="sticky top-0 z-50">
                 <DashboardNavbar></DashboardNavbar>
             </nav>
             <div className="drawer">

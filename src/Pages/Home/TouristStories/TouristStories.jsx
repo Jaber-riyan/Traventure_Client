@@ -25,7 +25,7 @@ const TouristStories = () => {
                 {/* Grid Layout */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
                     {stories?.length > 0 ? (
-                        stories.map(story => <StoryCard key={story?._id} story={story} />)
+                        stories.slice(0,3).map(story => <StoryCard key={story?._id} story={story} />)
                     ) : (
                         <div className="col-span-full flex justify-center items-center min-h-[200px]">
                             <h2 className="font-bold text-3xl text-red-600">No Added Story 😔</h2>
