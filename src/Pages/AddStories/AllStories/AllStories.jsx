@@ -22,16 +22,11 @@ const AllStories = () => {
             </div>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {
-                    stories?.length > 0 && stories.map(story => <StoryCard key={story?._id} story={story}></StoryCard>)
+                    stories?.length > 0 ? stories.map(story => <StoryCard key={story?._id} story={story}></StoryCard>)
+                    :
+                    <h3 className='text-3xl dark:text-white font-semibold'>No Shared Story</h3>
                 }
             </div>
-            {
-                stories?.length < 0 ? <div className='flex justify-center items-center min-h-screen'>
-                    <h2 className='font-bold text-4xl text-red-600'>No Added Story :(</h2>
-                </div>
-                :
-                <h3 className='text-3xl dark:text-white font-semibold'>No Shared Story</h3>
-            }
         </div>
     );
 };
