@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import {
+    loadCaptchaEnginge,
+    LoadCanvasTemplate,
+    validateCaptcha,
+} from 'react-simple-captcha';
 import { FaClosedCaptioning } from "react-icons/fa6";
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/UseAuth/UseAuth';
 import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 import UseAxiosNormal from '../../../Hooks/UseAxiosSecureAndNormal/UseAxiosNormal';
-
-
 
 const Login = () => {
     const { handleLogin, user, googleRegister, setLoading } = useAuth();
@@ -24,33 +26,21 @@ const Login = () => {
     const emailRef = useRef(null)
     const passwordRef = useRef(null)
 
-
     useEffect(() => {
         loadCaptchaEnginge(7);
         setCaptchaMatch(false)
-    }, [])
+    }, []);
 
-
-    // useEffect(() => {
-    //     if (user) {
-    //         toast.info("You Logged in ")
-    //         navigate(location?.state || '/');
-    //     }
-    // }, [user, navigate, location]);
-
-
-    const handleValidateCaptcha = (e) => {
+    const handleValidateCaptcha = () => {
         const user_captcha_value = captchaRef.current.value;
-        // console.log(user_captcha_value);
         if (validateCaptcha(user_captcha_value)) {
             toast.success("Successfully validated captcha");
             setCaptchaMatch(true);
-        }
-        else {
+        } else {
             toast.error("Invalid captcha!");
             setCaptchaMatch(false);
         }
-    }
+    };
 
     const handleSubmitLogin = (data) => {
         const email = data?.['email'];
@@ -71,7 +61,6 @@ const Login = () => {
 
         handleLogin(email, password)
             .then(async (res) => {
-                // console.log(location);
                 const user = res.user;
                 const userInfo = {
                     name: user?.displayName,
@@ -79,13 +68,11 @@ const Login = () => {
                     lastLoginTime: user.metadata.lastSignInTime,
                 }
                 const { data } = await axiosInstanceNormal.post('/users', userInfo);
-                // console.log(data);
                 if (data.data.insertedId || data.status === false) {
-                    // console.log(data);
                     Swal.fire({
                         title: 'Successfully Login!',
                         icon: 'success'
-                    })
+                    });
                     navigate(location?.state || '/');
                 }
             })
@@ -96,78 +83,57 @@ const Login = () => {
                     ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     ?.join(" ");
                 toast.error(formattedError);
-                setLoading(false)
+                setLoading(false);
                 navigate('/login');
-            })
-        // e.target.reset();
-
-    }
+            });
+    };
 
     const fillValidCredentials = (type) => {
+        let email, password;
         if (type === "admin") {
-            const email = import.meta.env.VITE_ADMIN_EMAIL
-            const password = import.meta.env.VITE_ADMIN_PASSWORD
-
-            setValue("email", email);
-            setValue("password", password);
-            setCaptchaMatch(true)
+            email = import.meta.env.VITE_ADMIN_EMAIL;
+            password = import.meta.env.VITE_ADMIN_PASSWORD;
+        } else if (type === "tourGuide") {
+            email = import.meta.env.VITE_GUIDE_EMAIL;
+            password = import.meta.env.VITE_GUIDE_PASSWORD;
+        } else {
+            email = import.meta.env.VITE_TOURIST_EMAIL;
+            password = import.meta.env.VITE_TOURIST_PASSWORD;
         }
-        else if (type === "tourGuide") {
-            const email = import.meta.env.VITE_GUIDE_EMAIL
-            const password = import.meta.env.VITE_GUIDE_PASSWORD
 
-            setValue("email", email);
-            setValue("password", password);
-            setCaptchaMatch(true)
-        }
-        else {
-            const email = import.meta.env.VITE_TOURIST_EMAIL
-            const password = import.meta.env.VITE_TOURIST_PASSWORD
-
-            setValue("email", email);
-            setValue("password", password);
-            setCaptchaMatch(true)
-        }
-    }
-
+        setValue("email", email);
+        setValue("password", password);
+        setCaptchaMatch(true);
+    };
 
     return (
-        <div className="bg-[url('https://i.ibb.co.com/C5YrLhL/authentication.png')] md:p-20 p-10">
-            <div className="flex lg:flex-row flex-col-reverse gap-10 items-center rounded-lg justify-center p-8 shadow-2xl">
+        <div className="bg-[url('https://i.ibb.co.com/C5YrLhL/authentication.png')] dark:bg-none dark:bg-gray-900 md:p-20 p-10">
+            <div className="flex lg:flex-row flex-col-reverse gap-10 items-center rounded-lg justify-center p-8 shadow-2xl bg-white dark:bg-gray-800 transition-all duration-300">
                 <Helmet>
-                    <title>Login | Traventure
-                    </title>
+                    <title>Login | Traventure</title>
                 </Helmet>
+
                 <img className='animate__animated animate__bounceInLeft' src="https://i.ibb.co.com/9cwJPtr/authentication2.png" onContextMenu={e => e.preventDefault()} draggable={false} alt="" />
+
                 <form onSubmit={handleSubmit(handleSubmitLogin)} className="w-full max-w-md py-20 px-8 space-y-6 animate__animated animate__bounceInRight">
-                    <h2 className="text-3xl font-bold text-center text-[#000]">Login</h2>
+                    <h2 className="text-3xl font-bold text-center text-black dark:text-white">Login</h2>
 
-                    {/* auto credential full fill buttons  */}
-                    <div className='border-t-2 border-zinc-300 pt-3 pb-3 border-b-2'>
-                        <h2 className='text-2xl font-semibold text-zinc-600'>Users Credentials</h2>
+                    {/* Auto credential buttons */}
+                    <div className='border-t-2 border-b-2 border-zinc-300 dark:border-zinc-600 pt-3 pb-3'>
+                        <h2 className='text-2xl font-semibold text-zinc-600 dark:text-zinc-200'>Users Credentials</h2>
                         <div className='flex gap-2'>
-                            <button onClick={() => fillValidCredentials("tourist")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#1D4ED8] hover:bg-[#1e3a8a]`}>
-                                Tourist
-                            </button>
-
-                            <button onClick={() => fillValidCredentials("tourGuide")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#10B981] hover:bg-[#059669]`}>
-                                Tour Guide
-                            </button>
-
-                            <button onClick={() => fillValidCredentials("admin")} className={`w-full py-2 mt-4 rounded-md text-white bg-[#F59E0B] hover:bg-[#d97706]`}>
-                                Admin
-                            </button>
-
+                            <button onClick={() => fillValidCredentials("tourist")} type="button" className="w-full py-2 mt-4 rounded-md text-white bg-[#1D4ED8] hover:bg-[#1e3a8a]">Tourist</button>
+                            <button onClick={() => fillValidCredentials("tourGuide")} type="button" className="w-full py-2 mt-4 rounded-md text-white bg-[#10B981] hover:bg-[#059669]">Tour Guide</button>
+                            <button onClick={() => fillValidCredentials("admin")} type="button" className="w-full py-2 mt-4 rounded-md text-white bg-[#F59E0B] hover:bg-[#d97706]">Admin</button>
                         </div>
                     </div>
 
                     <div className="space-y-4">
+                        {/* Email */}
                         <div>
-                            <label className="block text-sm font-medium text-[#000]" htmlFor="email">
-                                Email address
-                            </label>
+                            <label htmlFor="email" className="block text-sm font-medium text-black dark:text-white">Email address</label>
                             <div className="flex items-center mt-1">
-                                <FiMail className="w-5 h-5 text-black" />
+                                <FiMail className="w-5 h-5 text-black dark:text-white" />
                                 <input
                                     type="email"
                                     ref={emailRef}
@@ -175,18 +141,17 @@ const Login = () => {
                                     name='email'
                                     {...register("email", { required: true })}
                                     placeholder="Enter your email address"
-                                    className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
+                                    className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-white dark:bg-gray-700 dark:text-white focus:border-gray-400"
                                 />
                             </div>
                             {errors.email && <span className="text-red-500">This field is required</span>}
                         </div>
 
+                        {/* Password */}
                         <div>
-                            <label className="block text-sm font-medium text-[#000]" htmlFor="password">
-                                Password
-                            </label>
+                            <label htmlFor="password" className="block text-sm font-medium text-black dark:text-white">Password</label>
                             <div className="flex items-center mt-1">
-                                <FiLock className="w-5 h-5 text-black" />
+                                <FiLock className="w-5 h-5 text-black dark:text-white" />
                                 <input
                                     type="password"
                                     id="password"
@@ -194,52 +159,54 @@ const Login = () => {
                                     name='password'
                                     {...register("password", { required: true })}
                                     placeholder="Enter your password"
-                                    className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
+                                    className="w-full px-4 py-2 ml-2 border rounded-lg outline-none bg-white dark:bg-gray-700 dark:text-white focus:border-gray-400"
                                 />
                             </div>
                             {errors.password && <span className="text-red-500">This field is required</span>}
                         </div>
+
+                        {/* Captcha */}
                         <div>
-                            <label className="flex items-center gap-2 font-medium text-[#000] mb-2" htmlFor="captcha">
-                                <FaClosedCaptioning className="w-5 h-5 text-black" />
-                                <LoadCanvasTemplate></LoadCanvasTemplate>
+                            <label htmlFor="captcha" className="flex items-center gap-2 font-medium text-black dark:text-white mb-2">
+                                <FaClosedCaptioning className="w-5 h-5" />
+                                <LoadCanvasTemplate />
                             </label>
                             <div className="flex items-center mt-1">
-                                <FaClosedCaptioning className="w-5 h-5 text-black" />
+                                <FaClosedCaptioning className="w-5 h-5 text-black dark:text-white" />
                                 <input
                                     type="text"
                                     id="captcha"
                                     ref={captchaRef}
                                     name='captcha'
                                     placeholder="Type the captcha"
-                                    className="w-full px-4 py-2 ml-2 mr-2 border rounded-lg outline-none bg-[#ffffffce] focus:border-gray-400"
+                                    className="w-full px-4 py-2 ml-2 mr-2 border rounded-lg outline-none bg-white dark:bg-gray-700 dark:text-white focus:border-gray-400"
                                 />
                                 <button type='button' onClick={handleValidateCaptcha} className='btn btn-outline btn-xs font-bold bg-black text-white'>Validate</button>
                             </div>
                         </div>
                     </div>
-                    <p className="mt-4 text-sm text-[#000]">
-                        <Link to={`/forgat-password`} className="underline text-[#000]">
-                            Forgat Password?
-                        </Link>
 
+                    <p className="mt-4 text-sm text-black dark:text-white">
+                        <Link to={`/forgat-password`} className="underline">Forgot Password?</Link>
                     </p>
 
-
-                    <button disabled={!captchaMatch} className={`w-full py-2 mt-4 rounded-md  text-white ${!captchaMatch ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#D1A054B3] hover:bg-[#d19f54f8]'}`}>
+                    {/* Submit button */}
+                    <button
+                        disabled={!captchaMatch}
+                        className={`w-full py-2 mt-4 rounded-md text-white ${!captchaMatch
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-[#D1A054B3] hover:bg-[#d19f54f8]'
+                            }`}>
                         Login
                     </button>
-                    {/* <button className={`w-full py-2 mt-4 rounded-md  text-white bg-[#D1A054B3] hover:bg-[#d19f54f8]`}>
-                        Login
-                    </button> */}
-                    <div className="divider"></div>
-                    <SocialLogin></SocialLogin>
 
-                    <p className="mt-4 text-center text-sm text-[#000]">
+                    <div className="divider dark:divider-neutral"></div>
+
+                    <SocialLogin />
+
+                    <p className="mt-4 text-center text-sm text-black dark:text-white">
                         Don't Have An Account?{' '}
-                        <Link to="/register" className="text-red-500 hover:underline">
-                            Register
-                        </Link>
+                        <Link to="/register" className="text-red-500 hover:underline">Register</Link>
                     </p>
                 </form>
             </div>
